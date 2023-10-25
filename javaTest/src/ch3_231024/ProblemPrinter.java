@@ -1,5 +1,5 @@
 package ch3_231024;
-
+// 16번
 public class ProblemPrinter {
 	int i;
 	boolean b;

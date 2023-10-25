@@ -1,5 +1,5 @@
 package ch3_231024;
-
+// 19번
 public class ProblemAccount {
 	private final int min_balance = 0;
 	private final int max_balance = 1000000;

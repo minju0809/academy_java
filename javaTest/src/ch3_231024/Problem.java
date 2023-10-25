@@ -1,5 +1,7 @@
 package ch3_231024;
 
+import java.util.Scanner;
+
 public class Problem {
 	public static void main(String[] args) {
 //		// 14번
@@ -21,7 +23,7 @@ public class Problem {
 //		printer.println(true);
 //		printer.println(5.7);
 //		printer.println("홍길동");
-		
+
 		// 19번
 		ProblemAccount account = new ProblemAccount();
 		

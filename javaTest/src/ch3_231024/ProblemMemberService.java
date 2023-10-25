@@ -1,5 +1,5 @@
 package ch3_231024;
-
+// 15번
 public class ProblemMemberService {
 	String id = "hong";
 	String password = "12345";
