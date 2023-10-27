@@ -1,4 +1,4 @@
-package ch05_231026;
+package ch5_231026;
 
 public class InterfaceExample {
 	public static void main(String[] args) {

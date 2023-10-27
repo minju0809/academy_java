@@ -1,4 +1,4 @@
-package ch05_231026;
+package ch5_231026;
 
 public class InterfaceImpl implements InterfaceC {
 	public void methodA() {

@@ -1,4 +1,4 @@
-package ch05_231026.Polymorphism;
+package ch5_231026.Polymorphism;
 
 public class HankookTire implements Tire {
 

@@ -1,4 +1,4 @@
-package ch05_231026;
+package ch5_231026;
 
 // 9번
 class CD {
@@ -379,7 +379,6 @@ public class OCAJP extends B {
 		// 107번
 		boolean aa = new Boolean(Boolean.valueOf(args[0]));
 		boolean bb = new Boolean (args[1]);
-		
 		
 		System.out.println(aa + " " + bb);
 	}
