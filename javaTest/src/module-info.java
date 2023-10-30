@@ -5,4 +5,5 @@
  * 
  */
 module javaTest {
+	requires lombok;
 }

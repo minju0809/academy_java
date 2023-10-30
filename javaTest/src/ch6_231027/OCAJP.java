@@ -250,7 +250,7 @@ public class OCAJP {
 		System.out.println(bb);
 		int cc = xx++;
 		System.out.println(cc);
-		int dd = (aa > bb) ? (aa < cc) ? aa : (bb < cc) ? bb : cc : xx;
+		int dd = (aa < bb) ? (aa < cc) ? aa : (bb < cc) ? bb : cc : xx;
 		System.out.println(dd);
 	}
 }

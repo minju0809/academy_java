@@ -13,7 +13,7 @@ class School {
 	}
 }
 
-public class Ocajp2 {
+public class Ocajp2 { 
 	public static void main(String[] args) {
 		School s = new School();
 		s.print();
