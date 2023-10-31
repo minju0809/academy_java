@@ -17,69 +17,43 @@
 <body>
 
 	<h3>Data base 연동 샘플</h3>
-
 	<hr>
 
 	<%
 	/* 자바 DB 연동 프로그램 */
-
 	try {
-
 		Class.forName("oracle.jdbc.OracleDriver");
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xe", "system", "1234qa");
 
-		Connection con = DriverManager.getConnection
-
-		("jdbc:oracle:thin:@//localhost:1521/xe", "system", "1234");
-
-		if (con != null)
-
-		{
-
-			out.println("Database Connect : [ " + " <b>success</b> ]<br>");
-
-		} else {
-
-			out.println("Database Connect : [ " + " <b>fail</b> ]<br>");
-
+		if (con != null) {
+			out.println("Database Connect : [ " + " <b>접속 성공</b> ]<br>");
 		}
 		;
 
 		Statement stmt = con.createStatement();
-
 		ResultSet rs = stmt.executeQuery("select sysdate from dual");
 
 		while (rs.next()) {
-
 			out.println("Today date : " + rs.getString(1) + "<hr>");
-
 		}
 
 		stmt.close();
-
 		con.close();
 
 	} catch (Exception e) {
-
 		e.printStackTrace();
-
+		out.println("Database Connect : [ " + " <b>접속 실패</b> ]<br>");
 	}
 	%>
 
 	<footer>
-
 		<address>
-
 			<center>
-
 				Web site Layout DB Connection Page.<br> Home page :
 				http://www.visiongongjang.com <br> mobile : 010-2222-3333 <br>
-
 			</center>
-
 		</address>
-
 	</footer>
-
 </body>
 
 </html>
