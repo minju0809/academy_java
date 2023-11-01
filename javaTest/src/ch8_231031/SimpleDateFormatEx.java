@@ -15,5 +15,6 @@ public class SimpleDateFormatEx {
 		String stringRemainDay = sdf2.format(now);
 		int RemainDay = 365 - Integer.parseInt(stringRemainDay);
 		System.out.println("올해의 남은 날: " + RemainDay + "일");
+		
 	}
 }

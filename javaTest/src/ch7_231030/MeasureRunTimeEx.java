@@ -1,6 +1,7 @@
 package ch7_231030;
 
 import java.text.NumberFormat;
+import java.util.Random;
 
 public class MeasureRunTimeEx {
 	public static void main(String[] args) {
