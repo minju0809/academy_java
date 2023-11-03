@@ -5,18 +5,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import project.service.BoardServiceImpl;
+
 import java.io.IOException;
 
 /**
- * Servlet implementation class BControoller
+ * Servlet implementation class BController
  */
-public class BControoller extends HttpServlet {
+public class BController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BControoller() {
+    public BController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +28,13 @@ public class BControoller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		BoardServiceImpl  service = new BoardServiceImpl();
+		BoardVO vo = new BoardVO() ;
+//		vo.setName("영심이");
+//		vo.setAge("30");
+		service.insert(vo);
 	}
 
 	/**
