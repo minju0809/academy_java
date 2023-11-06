@@ -1,23 +1,27 @@
-package pkg;
+package pkg.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+//import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import pkg.service.MemberServiceImpl;
+import pkg.model.MemberVO;
+import pkg.service.MemberService;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
- * Servlet implementation class BoardController
+ * Servlet implementation class InsertController
  */
-public class BoardController extends HttpServlet {
+public class InsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardController() {
+	public InsertController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,23 +35,19 @@ public class BoardController extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		BoardService service = new BoardServiceImpl();
-		BoardVO vo = new BoardVO();
+		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		MemberService service = new MemberServiceImpl();
+		MemberVO vo = new MemberVO();
+		vo.setPwd(pwd);
+		vo.setName(name);
+		vo.setEmail(email);
+		service.insert(vo);
 
-		String sw = "s";
-		switch (sw) {
-		case "i":
-			vo.setName("영심이");
-			vo.setAge(13);
-			service.insert(vo);
-			break;
-		case "s":
-			List<BoardVO> li = service.getBoardList();
-			for (BoardVO m : li) {
-				System.out.println(m);
-			}
-			break;
-		}
+		// 목록을 바로 보려면 member_list.jsp로 가는 것이 아니고 SelectController로 가야함
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/member/member_result.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

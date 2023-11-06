@@ -11,12 +11,52 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>BoardController</display-name>
-    <servlet-name>BoardController</servlet-name>
-    <servlet-class>pkg.BoardController</servlet-class>
+    <display-name>JoinController</display-name>
+    <servlet-name>JoinController</servlet-name>
+    <servlet-class>pkg.JoinController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>BoardController</servlet-name>
-    <url-pattern>/BoardController</url-pattern>
+    <servlet-name>JoinController</servlet-name>
+    <url-pattern>/JoinController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertController</display-name>
+    <servlet-name>InsertController</servlet-name>
+    <servlet-class>pkg.controller.InsertController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertController</servlet-name>
+    <url-pattern>/InsertController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SelectController</display-name>
+    <servlet-name>SelectController</servlet-name>
+    <servlet-class>pkg.controller.SelectController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SelectController</servlet-name>
+    <url-pattern>/SelectController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditController</display-name>
+    <servlet-name>EditController</servlet-name>
+    <servlet-class>pkg.controller.EditController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditController</servlet-name>
+    <url-pattern>/EditController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteController</display-name>
+    <servlet-name>DeleteController</servlet-name>
+    <servlet-class>pkg.controller.DeleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteController</servlet-name>
+    <url-pattern>/DeleteController</url-pattern>
   </servlet-mapping>
 </web-app>

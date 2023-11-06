@@ -1,24 +1,26 @@
-package project;
+package pkg.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import project.service.BoardServiceImpl;
+import pkg.service.MemberService;
+import pkg.service.MemberServiceImpl;
 
 import java.io.IOException;
 
 /**
- * Servlet implementation class BController
+ * Servlet implementation class DeleteController
  */
-public class BController extends HttpServlet {
+public class DeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BController() {
+    public DeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +32,12 @@ public class BController extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		BoardServiceImpl  service = new BoardServiceImpl();
-		BoardVO vo = new BoardVO() ;
-//		vo.setName("영심이");
-//		vo.setAge("30");
-		service.insert(vo);
+		String id = request.getParameter("id");
+		MemberService service = new MemberServiceImpl();
+		service.delete(id);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectController");
+		dispatcher.forward(request, response);
 	}
 
 	/**
