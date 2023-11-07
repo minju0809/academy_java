@@ -25,6 +25,13 @@
 			}
 			alert("성적입력이 완료 되었습니다!");
 		}
+
+		function cancel() {
+			if (confirm("저장을 취소하시겠습니까?")) {
+				// 사용자가 확인을 누르면 JungboController?sw=S로 리다이렉트
+				window.location.href = "JungboController?sw=S";
+			}
+		}
 	</script>
 	<header> (과정평가형 정보처리기능사) 성적조회 프로그램 Ver 1.0 </header>
 	<nav>
@@ -55,22 +62,27 @@
 						</tr>
 						<tr>
 							<th>국어</th>
-							<td><input type=text name=kor></td>
+							<td><input type=number name=kor></td>
 						</tr>
 						<tr>
 							<th>영어</th>
-							<td><input type=text name=eng></td>
+							<td><input type=number name=eng></td>
 						</tr>
 						<tr>
 							<th>수학</th>
-							<td><input type=text name=math></td>
+							<td><input type=number name=math></td>
 						</tr>
 						<tr>
 							<th>역사</th>
-							<td><input type=text name=hist></td>
+							<td><input type=number name=hist></td>
 						</tr>
 						<tr>
-							<td colspan=2 align=center><input type=submit value="성적저장"></td>
+							<th>날짜</th>
+							<td><input type=date name=today></td>
+						</tr>
+						<tr>
+							<td colspan=2 align=center><input type=submit value="성적저장">
+								<button type="button" onclick="cancel()">저장취소</button></td>
 						</tr>
 					</tbody>
 				</table>

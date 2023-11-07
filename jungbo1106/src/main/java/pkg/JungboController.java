@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
@@ -36,9 +37,11 @@ public class JungboController extends HttpServlet {
 		String sw = request.getParameter("sw");
 		JungService service = new JungServiceImpl();
 		JungVO vo = new JungVO();
+
 		if (sw.equals("F")) {
 			int sNo = service.sNo();
-			request.setAttribute("sNo", sNo);
+			request.setAttribute("sNo", sNo); // "sNo"의 이름으로 sNo라는 객체를 담는다
+			// dispatcher 의 url에 값을 넘겨야 할 때 사용
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("form.jsp");
 			dispatcher.forward(request, response);
@@ -49,27 +52,35 @@ public class JungboController extends HttpServlet {
 			int eng = Integer.parseInt(request.getParameter("eng"));
 			int math = Integer.parseInt(request.getParameter("math"));
 			int hist = Integer.parseInt(request.getParameter("hist"));
+			String today = request.getParameter("today");
 			vo.setsNo(sNo);
 			vo.setsName(sName);
 			vo.setKor(kor);
 			vo.setEng(eng);
 			vo.setMath(math);
 			vo.setHist(hist);
+			vo.setToday(today);
 			service.insert(vo);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
-			dispatcher.forward(request, response);
+			response.sendRedirect("JungboController?sw=S"); // url을 JungboController?sw=S로 변경
+
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
+//			dispatcher.forward(request, response);
 		} else if (sw.equals("S")) {
 			List<JungVO> li = service.select();
+
 			request.setAttribute("li", li);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
 			dispatcher.forward(request, response);
+			
 		} else if (sw.equals("E")) {
 			String sNo = request.getParameter("sNo");
 			int sNoK = Integer.parseInt(sNo);
 			vo = service.edit(sNoK);
-			request.setAttribute("vo", vo);
+			service.cnt(sNo);
+
+			request.setAttribute("vo", vo); // 해당 sNo의 vo를 넘김
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
 			dispatcher.forward(request, response);
@@ -80,28 +91,28 @@ public class JungboController extends HttpServlet {
 			int eng = Integer.parseInt(request.getParameter("eng"));
 			int math = Integer.parseInt(request.getParameter("math"));
 			int hist = Integer.parseInt(request.getParameter("hist"));
+			String today = request.getParameter("today");
 			vo.setsNo(sNo);
 			vo.setsName(sName);
 			vo.setKor(kor);
 			vo.setEng(eng);
 			vo.setMath(math);
 			vo.setHist(hist);
+			vo.setToday(today);
 
 			service.update(vo);
 
-			request.setAttribute("vo", vo);
+			response.sendRedirect("JungboController?sw=S");
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
-			dispatcher.forward(request, response);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
+//			dispatcher.forward(request, response);
 		} else if (sw.equals("D")) {
 			String sNo = request.getParameter("sNo");
-			int sNoK = Integer.parseInt(sNo);
-			service.delete(sNoK);
-			
-//			request.setAttribute("vo", vo); // dispatcher 의 url에 값을 넘겨야 할 때 사용 
+			service.delete(sNo);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
-			dispatcher.forward(request, response);
+			response.sendRedirect("JungboController?sw=S");
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("JungboController?sw=S");
+//			dispatcher.forward(request, response);
 		}
 	}
 

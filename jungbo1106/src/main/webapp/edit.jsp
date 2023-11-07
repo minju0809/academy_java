@@ -40,6 +40,7 @@
 	int eng = vo.getEng();
 	int math = vo.getMath();
 	int hist = vo.getHist();
+	String today = vo.getToday();
 	%>
 	<section>
 		<br>
@@ -74,6 +75,10 @@
 						<tr>
 							<th>역사</th>
 							<td><input type=text name=hist value=<%=hist%>></td>
+						</tr>
+						<tr>
+							<th>날짜</th>
+							<td><input type=date name=today value=<%=today%>></td>
 						</tr>
 						<tr>
 							<td colspan=2 align=center><input type=submit value="성적수정"></td>

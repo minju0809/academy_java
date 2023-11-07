@@ -35,8 +35,13 @@ public class JungServiceImpl implements JungService {
 	}
 
 	@Override
-	public void delete(int sNo) {
+	public void delete(String sNo) {
 		dao.delete(sNo);
+	}
+
+	@Override
+	public void cnt(String sNo) {
+		dao.cnt(sNo);
 	}
 
 }

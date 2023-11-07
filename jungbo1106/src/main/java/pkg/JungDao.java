@@ -13,5 +13,7 @@ public interface JungDao {
 	
 	void update(JungVO vo);
 	
-	void delete(int sNo);
+	void delete(String sNo);
+	
+	void cnt(String sNo);
 }
