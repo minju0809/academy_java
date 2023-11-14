@@ -34,4 +34,15 @@ public class JungboServiceImpl implements JungboService {
 	public MemberVO edit(int custno) {
 		return dao.edit(custno);
 	}
+	
+	@Override
+	public void update(MemberVO vo) {
+		dao.update(vo);
+	}
+
+	@Override
+	public List<MoneyVO> money() {
+		return dao.money();
+	}
+
 }

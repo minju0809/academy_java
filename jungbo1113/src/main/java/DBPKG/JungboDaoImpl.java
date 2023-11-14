@@ -16,7 +16,7 @@ public class JungboDaoImpl implements JungboDao {
 		List<MemberVO> li = new ArrayList<>();
 		try {
 			conn = DBConn.getConnection();
-			String SQL = "select * from member_tbl_02";
+			String SQL = "select * from member_tbl_02 order by custno desc";
 			pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 
@@ -120,5 +120,59 @@ public class JungboDaoImpl implements JungboDao {
 		}
 		return m;
 	}
+
+	@Override
+	public void update(MemberVO vo) {
+		try {
+			conn = DBConn.getConnection();
+			String SQL = "update member_tbl_02 set custname=?, phone=?, address=?, "
+					+ "joindate=?, grade=?, city=? where custno=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, vo.getCustname());
+			pstmt.setString(2, vo.getPhone());
+			pstmt.setString(3, vo.getAddress());
+			pstmt.setDate(4, vo.getJoindate());
+			pstmt.setString(5, vo.getGrade());
+			pstmt.setString(6, vo.getCity());
+			pstmt.setInt(7, vo.getCustno());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<MoneyVO> money() {
+		List<MoneyVO> li = new ArrayList<>();
+		try {
+			conn = DBConn.getConnection();
+			String SQL = "SELECT rownum, k.* FROM ( "
+					+ " SELECT m1.custno, m1.custname, grade, NVL(SUM(price), 0) AS price "
+					+ " FROM member_tbl_02 m1 "
+					+ " LEFT OUTER JOIN money_tbl_02 m2 ON m1.custno = m2.custno "
+					+ " GROUP BY m1.custno, m1.custname, grade "
+					+ " ORDER BY price DESC ) k "
+					+ " WHERE rownum <= 5";
+			pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+
+			MoneyVO m = null;
+			while (rs.next()) {
+				m = new MoneyVO();
+				m.setCustno(rs.getInt("custno"));
+				m.setCustname(rs.getString("custname"));
+				m.setGrade(rs.getString("grade"));
+				m.setMoney(rs.getInt("price"));
+				li.add(m);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return li;
+	}
+
 
 }

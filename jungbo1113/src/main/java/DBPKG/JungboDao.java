@@ -12,4 +12,8 @@ public interface JungboDao {
 	void delete(MemberVO vo);
 	
 	MemberVO edit(int custno);
+	
+	void update(MemberVO vo);
+	
+	List<MoneyVO> money();
 }

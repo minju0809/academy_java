@@ -70,6 +70,8 @@ public class JungboController extends HttpServlet {
 			vo.setJoindate(joindate);
 			vo.setGrade(grade);
 			vo.setCity(city);
+			
+			System.out.println("==> [insert] " + vo);
 
 			service.insert(vo);
 
@@ -91,8 +93,39 @@ public class JungboController extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/member_edit.jsp");
 			rd.forward(request, response);
-		} else if (sw.equals("M")) {
+		} else if (sw.equals("U")) {
+			int custno = Integer.parseInt(request.getParameter("custno"));
+			String custname = request.getParameter("custname");
+			String phone = request.getParameter("phone");
+			String address = request.getParameter("address");
+			Date joindate = Date.valueOf(request.getParameter("joindate"));
+			String grade = request.getParameter("grade");
+			String city = request.getParameter("city");
+			vo.setCustno(custno);
+			vo.setCustname(custname);
+			vo.setPhone(phone);
+			vo.setAddress(address);
+			vo.setJoindate(joindate);
+			vo.setGrade(grade);
+			vo.setCity(city);
+			
+			service.update(vo);
 
+			response.sendRedirect(path + "/JungboController?sw=F");
+		} else if (sw.equals("M")) {
+			List<MoneyVO> li = service.money();
+
+			request.setAttribute("li", li);
+
+			RequestDispatcher rd = request.getRequestDispatcher("money.jsp");
+			rd.forward(request, response);
+		}  else if (sw.equals("ML1")) {
+			List<MoneyVO> li = service.money();
+			
+			request.setAttribute("li", li);
+
+			RequestDispatcher rd = request.getRequestDispatcher("money_list1.jsp");
+			rd.forward(request, response);
 		}
 	}
 
