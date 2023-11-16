@@ -27,6 +27,7 @@ public class JungboController extends HttpServlet {
 	}
 
 	/**
+	 * @param ''' 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -112,21 +113,29 @@ public class JungboController extends HttpServlet {
 			service.update(vo);
 
 			response.sendRedirect(path + "/JungboController?sw=F");
-		} else if (sw.equals("M")) {
-			List<MoneyVO> li = service.money();
-
-			request.setAttribute("li", li);
-
-			RequestDispatcher rd = request.getRequestDispatcher("money.jsp");
-			rd.forward(request, response);
-		}  else if (sw.equals("ML1")) {
-			List<MoneyVO> li = service.money();
-			
-			request.setAttribute("li", li);
-
-			RequestDispatcher rd = request.getRequestDispatcher("money_list1.jsp");
-			rd.forward(request, response);
 		}
+//		else if (sw.equals("M")) {
+//			List<MoneyVO> li = service.money("list");
+//
+//			request.setAttribute("li", li);
+//
+//			RequestDispatcher rd = request.getRequestDispatcher("money.jsp");
+//			rd.forward(request, response);
+//		} else if (sw.equals("ML1")) {
+//			List<MoneyVO> li = service.money("graph");
+//			
+//			request.setAttribute("li", li);
+//
+//			RequestDispatcher rd = request.getRequestDispatcher("money_list1.jsp");
+//			rd.forward(request, response);
+//		} else if (sw.equals("ML2")) {
+//			List<MoneyVO> li = service.money("graph");
+//			
+//			request.setAttribute("li", li);
+//
+//			RequestDispatcher rd = request.getRequestDispatcher("money_list2.jsp");
+//			rd.forward(request, response);
+//		}
 	}
 
 	/**

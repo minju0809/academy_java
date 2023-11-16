@@ -39,10 +39,4 @@ public class JungboServiceImpl implements JungboService {
 	public void update(MemberVO vo) {
 		dao.update(vo);
 	}
-
-	@Override
-	public List<MoneyVO> money() {
-		return dao.money();
-	}
-
 }

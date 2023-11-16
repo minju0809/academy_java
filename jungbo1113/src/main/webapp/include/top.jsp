@@ -16,8 +16,11 @@
 	<nav>
 		<a href="<%=path %>/JungboController?sw=F">회원등록</a>
 		<a href="<%=path %>/JungboController?sw=S">회원목록조회/수정</a>
-		<a href="<%=path %>/JungboController?sw=M">회원매출조회</a>
-		<a href="<%=path %>/JungboController?sw=ML1">매출그래프1</a>
-		<a href="<%=path %>/JungboController?sw=ML2">매출그래프2</a>
+		<a href="<%=path %>/MoneyController?sw=M">회원매출조회</a>
+		<a href="<%=path %>/MoneyController?sw=F">매출등록</a>
+		<a href="<%=path %>/MoneyController?sw=ML1">매출그래프1</a>
+		<a href="<%=path %>/MoneyController?sw=ML2">매출그래프2</a>
+		<a href="<%=path %>/MoneyController?sw=S">매출목록</a>
+		<a href="<%=path %>/MoneyController?sw=DayS">일별매출목록</a>
 		<a href="<%=path %>/index.jsp">홈으로</a>
 	</nav>

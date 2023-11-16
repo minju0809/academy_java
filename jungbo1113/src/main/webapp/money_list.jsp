@@ -6,7 +6,9 @@
 <%@ include file="./include/top.jsp"%>
 
 <%
-List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
+List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
+
+List<Integer> selectCustno = (List<Integer>)request.getAttribute("selectCustno");
 %>
 
 <style>
@@ -17,58 +19,53 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 </style>
 
 <script>
-function del(custno) {
-	location.href="./JungboController?sw=D&custno=" + custno
-	alert(custno+"번을 삭제하였습니다.");
-}
+
 </script>
 
 <section>
 	<br>
 	<div align=center>
-		<b>회원목록조회/수정</b>
+		<b>매출목록조회</b>
 	</div>
 
 	<div align=center>
 		<table border=1>
 			<tr>
 				<th>회원번호</th>
-				<th>회원성명</th>
-				<th>전화번호</th>
-				<th>주소</th>
-				<th>가입일자</th>
-				<th>고객등급</th>
-				<th>거주지역</th>
-				<th colspan=2>삭제</th>
+				<th>구매번호</th>
+				<th>상품코드</th>
+				<th>상품단가</th>
+				<th>상품수량</th>
+				<th>구매가격</th>
+				<th>구입일자</th>
 			</tr>
 			<%
-			for (MemberVO m : li) {
+			for (MoneyVO m : li) {
 				int custno = m.getCustno();
-				String custname = m.getCustname();
-				String phone = m.getPhone();
-				String address = m.getAddress();
-				Date joindate = m.getJoindate();
-				String grade = m.getGrade();
-				String city = m.getCity();
+				int salenol = m.getSalenol();
+				String pcode = m.getPcode();
+				int pcost = m.getPcost();
+				int amount = m.getAmount();
+				int price = m.getPrice();
+				Date sDate = m.getsDate();
 			%>
 			<tr>
-				<td><a href="<%=path%>/JungboController?sw=E&custno=<%=custno%>"><%=custno%></a></td>
-				<td><%=custname%></td>
-				<td><%=phone%></td>
-				<td><%=address%></td>
-				<td><%=joindate%></td>
-				<td><%=grade%></td>
-				<td id="city"><a href="<%=path%>/JungboController?sw=D&custno=<%=custno%>"><%=city%></a></td>
-				<td><input type=submit value='삭제' onclick="del('<%=custno %>');"></td>
-				<td><input type=button value='삭제' onclick="del('<%=custno %>');"></td>
+				<td><a><%=custno%></a></td>
+				<td><%=salenol %></td>
+				<td><%=pcode %></td>
+				<td><%=pcost %></td>
+				<td><%=amount %></td>
+				<td><%=price %></td>
+				<td><%=sDate%></td>
 			</tr>
 			<%
 			}
 			%>
 		</table>
-		<select>
-			<option></option>
+		<select value="selectCustno">
+			<option value="selectCustno">회원번호</option>
 		</select>
+		<input type=submit value="검색">		
 	</div>
 	<br>
 </section>

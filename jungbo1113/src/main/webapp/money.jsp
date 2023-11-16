@@ -48,6 +48,9 @@ List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
 			}
 			%>
 		</table>
+		<select>
+			<option value="custno">고객명</option>
+		</select>
 	</div>
 <br>
 </section>

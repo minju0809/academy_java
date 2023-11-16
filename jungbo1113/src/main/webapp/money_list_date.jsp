@@ -1,21 +1,51 @@
-<%@page import="javax.naming.spi.DirStateFactory.Result"%>
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="java.text.*"%>
-<%@ page import="java.io.*"%>
 <%@ page import="DBPKG.*"%>
 
 <%@ include file="./include/top.jsp"%>
-<link href="./css/style.css" rel=stylesheet type="text/css" />
+
 <%
 List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
 %>
 
+<style>
+.body {
+	display: flex;
+}
+
+</style>
+
+<script>
+
+</script>
+
 <section>
 	<br>
 	<div align=center>
-		<b>매출막대그래프1</b>
+		<b>날짜별 매출</b>
+	</div>
+
+	<div class=body align=center>
+		<table border=1 width=50%>
+			<tr>
+				<th>구입일자</th>
+				<th>구매가격</th>
+			</tr>
+			<%
+			for (MoneyVO m : li) {
+				Date sDate = m.getsDate();
+				int price = m.getPrice();
+			%>
+			<tr>
+				<td><%=sDate%></td>
+				<td><%=price %></td>
+			</tr>
+			<%
+			}
+			%>
+		</table>
+		<b>일별매출막대그래프</b>
 		<div id="columnchart_values" style="width: 1000px; height: 500px;"></div>
 	</div>
 	<br>
@@ -31,16 +61,15 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	color = [ "silver", "gold", "#e5e4e2", "#b87333" ];
 	var data = google.visualization.arrayToDataTable([
-		[ "Element", "매출액", { role : "style" } ],
+		[ "Element", "일별매출액", { role : "style" } ],
 
         <%
         int i = 0;
         for (MoneyVO m : li) {
-        	String custno = Integer.toString(m.getCustno()).substring(4, 6);
-			String custname = m.getCustname();
-			int money = m.getMoney();
+			Date sDate = m.getsDate();
+			int price = m.getPrice();
         %>
-        ["<%=custname%>\n[<%=custno %>]",<%=money%>, "#b87333"],
+        ["<%=sDate%>",<%=price%>, "#b87333"],
 		<%
 		i++;
         }
@@ -57,7 +86,7 @@ function drawChart() {
 
 		var options = {
 			title : " ",
-			width : 1000,
+			width : 500,
 			height : 500,
 			bar : {
 				groupWidth : "85%"
@@ -72,4 +101,5 @@ function drawChart() {
 	}
 </script>
 
+	
 <%@ include file="./include/bottom.jsp"%>

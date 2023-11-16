@@ -142,37 +142,4 @@ public class JungboDaoImpl implements JungboDao {
 		}
 	}
 
-	@Override
-	public List<MoneyVO> money() {
-		List<MoneyVO> li = new ArrayList<>();
-		try {
-			conn = DBConn.getConnection();
-			String SQL = "SELECT rownum, k.* FROM ( "
-					+ " SELECT m1.custno, m1.custname, grade, NVL(SUM(price), 0) AS price "
-					+ " FROM member_tbl_02 m1 "
-					+ " LEFT OUTER JOIN money_tbl_02 m2 ON m1.custno = m2.custno "
-					+ " GROUP BY m1.custno, m1.custname, grade "
-					+ " ORDER BY price DESC ) k "
-					+ " WHERE rownum <= 5";
-			pstmt = conn.prepareStatement(SQL);
-			rs = pstmt.executeQuery();
-
-			MoneyVO m = null;
-			while (rs.next()) {
-				m = new MoneyVO();
-				m.setCustno(rs.getInt("custno"));
-				m.setCustname(rs.getString("custname"));
-				m.setGrade(rs.getString("grade"));
-				m.setMoney(rs.getInt("price"));
-				li.add(m);
-			}
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return li;
-	}
-
-
 }
