@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DBPKG.jungbo.JungboService;
+import DBPKG.jungbo.JungboServiceImpl;
+
 /**
  * Servlet implementation class MoneyController
  */

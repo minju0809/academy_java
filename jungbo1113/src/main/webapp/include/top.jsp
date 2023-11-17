@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>정보처리 산업기사 과정평가형</title>
-<link href="./css/style.css" rel=stylesheet type="text/css" />
+<link href="<%=path %>/css/style.css" rel=stylesheet type="text/css" />
 
 </head>
 <body>
@@ -22,5 +22,7 @@
 		<a href="<%=path %>/MoneyController?sw=ML2">매출그래프2</a>
 		<a href="<%=path %>/MoneyController?sw=S">매출목록</a>
 		<a href="<%=path %>/MoneyController?sw=DayS">일별매출목록</a>
+		<a href="<%=path %>/psd/psd_form.jsp">자료등록</a>
+		<a href="<%=path %>/PsdController?sw=S">자료실</a>
 		<a href="<%=path %>/index.jsp">홈으로</a>
 	</nav>

@@ -1,6 +1,8 @@
-package DBPKG;
+package DBPKG.jungbo;
 
 import java.util.List;
+
+import DBPKG.MemberVO;
 
 public interface JungboDao {
 	List<MemberVO> select(MemberVO vo);

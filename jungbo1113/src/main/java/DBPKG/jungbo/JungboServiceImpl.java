@@ -1,7 +1,9 @@
 
-package DBPKG;
+package DBPKG.jungbo;
 
 import java.util.List;
+
+import DBPKG.MemberVO;
 
 public class JungboServiceImpl implements JungboService {
 	JungboDao dao = null;

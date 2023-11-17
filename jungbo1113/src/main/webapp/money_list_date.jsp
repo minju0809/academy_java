@@ -23,7 +23,12 @@ List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
 <section>
 	<br>
 	<div align=center>
-		<b>날짜별 매출</b>
+		<div>
+			<b>날짜별 매출</b>
+		</div><br>
+		<div align=right>
+			<b >일별매출막대그래프</b>
+		</div>
 	</div>
 
 	<div class=body align=center>
@@ -45,7 +50,7 @@ List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
 			}
 			%>
 		</table>
-		<b>일별매출막대그래프</b>
+		
 		<div id="columnchart_values" style="width: 1000px; height: 500px;"></div>
 	</div>
 	<br>
@@ -87,7 +92,7 @@ function drawChart() {
 		var options = {
 			title : " ",
 			width : 500,
-			height : 500,
+			height : 400,
 			bar : {
 				groupWidth : "85%"
 			},

@@ -137,7 +137,6 @@ public class MoneyDaoImpl implements MoneyDao {
 				m.setsDate(rs.getDate("sDate"));
 				m.setPrice(rs.getInt("price"));
 				li.add(m);
-				System.out.println("@@@@@@@@@@@" + m);
 			}
 
 		} catch (Exception e) {

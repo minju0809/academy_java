@@ -1,8 +1,11 @@
-package DBPKG;
+package DBPKG.jungbo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import DBPKG.DBConnection;
+import DBPKG.MemberVO;
 
 public class JungboDaoImpl implements JungboDao {
 	DBConnection DBConn = null;
