@@ -65,9 +65,8 @@ public class PsdSelectController extends HttpServlet {
 			PsdVO m = service.edit(idx);
 			
 			request.setAttribute("m", m);
-			System.out.println("@@@@@@@m: " +m);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/psd/psd_list.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/psd/psd_edit.jsp");
 			rd.forward(request, response);
 		}
 	}
