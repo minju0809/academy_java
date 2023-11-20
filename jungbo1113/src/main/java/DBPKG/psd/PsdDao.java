@@ -8,4 +8,7 @@ public interface PsdDao {
 	List<PsdVO> select();
 	
 	void delete(int idx);
+	String selectFileName(int idx);
+	
+	PsdVO edit(int idx);
 }

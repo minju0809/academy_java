@@ -1,6 +1,8 @@
 package DBPKG;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +35,13 @@ public class TestController extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		
 		System.out.println(sw + " : " + id + " : " + pwd);
+		
+		response.setContentType("text/html; charset=utf-8");
+		
+		PrintWriter out = response.getWriter();
+		out.println("<HTML>");
+		out.println("처음으로 작성하는 서블릿");
+		
 	}
 
 	/**

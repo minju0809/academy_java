@@ -11,22 +11,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.plaf.multi.MultiButtonUI;
+
+import org.apache.coyote.Request;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import DBPKG.psd.PsdVO;
+
 /**
  * Servlet implementation class PsdController
  */
-@WebServlet("/PsdController")
-public class PsdController extends HttpServlet {
+@WebServlet("/PsdSelectController")
+public class PsdSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PsdController() {
+	public PsdSelectController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,42 +45,27 @@ public class PsdController extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		String path = request.getContextPath();
-		String sw = request.getParameter("sw");
+		System.out.println("PsdSelectController");
+		
 		PsdService service = new PsdServiceImpl();
-		PsdVO vo = null;
+//		HttpSession session = request.getSession();
 
-		if (sw.equals("I")) {
-			String realFolder = "";
-			String saveFolder = "/files";
-			String encType = "utf-8";
-			int maxSize = 5 * 1024 * 1024;
+		String sw = request.getParameter("sw");
+		if (sw.equals("S")) {
 
-			ServletContext context = getServletContext();
-
-			realFolder = context.getRealPath(saveFolder);
-
-			System.out.println("realFolder: " + realFolder);
-			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType,
-					new DefaultFileRenamePolicy());
-
-			String fname = multi.getParameter("fname");
-			String originalfimg = multi.getOriginalFileName("fimg");
-			String fimg = multi.getFilesystemName("fimg");
-			System.out.println("fname: " + fname);
-			System.out.println("originalfimg: " + originalfimg);
-			System.out.println("fimg: " + fimg);
-
-			vo = new PsdVO();
-			vo.setFname(fname);
-			vo.setFimg(fimg);
-			service.insert(vo);
-			
-			response.sendRedirect(path + "/PsdController?sw=S");
-
-		} else if (sw.equals("S")) {
 			List<PsdVO> li = service.select();
+
 			request.setAttribute("li", li);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/psd/psd_list.jsp");
+			rd.forward(request, response);
+			
+		} else if (sw.equals("E")) {
+			int idx = Integer.parseInt(request.getParameter("idx"));
+			PsdVO m = service.edit(idx);
+			
+			request.setAttribute("m", m);
+			System.out.println("@@@@@@@m: " +m);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/psd/psd_list.jsp");
 			rd.forward(request, response);

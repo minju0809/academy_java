@@ -23,6 +23,6 @@
 		<a href="<%=path %>/MoneyController?sw=S">매출목록</a>
 		<a href="<%=path %>/MoneyController?sw=DayS">일별매출목록</a>
 		<a href="<%=path %>/psd/psd_form.jsp">자료등록</a>
-		<a href="<%=path %>/PsdController?sw=S">자료실</a>
+		<a href="<%=path %>/PsdSelectController?sw=S">자료실</a>
 		<a href="<%=path %>/index.jsp">홈으로</a>
 	</nav>

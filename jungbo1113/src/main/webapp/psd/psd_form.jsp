@@ -16,11 +16,23 @@
 		<b>홈쇼핑 회원 사진 등록</b>
 
 		<form name="f1" method="post" enctype="multipart/form-data"
-			action="<%=path%>/PsdController?sw=I">
+			action="<%=path%>/PsdIUDController?sw=I">
 			<table border=1>
+				<tr>
+					<th>제목</th> 
+					<td><input type=text name="title"></td>
+				</tr>
 				<tr>
 					<th>이름</th>
 					<td><input type=text name="fname"></td>
+				</tr>
+				<tr>
+					<th>나이</th>
+					<td><input type=text name="age"></td>
+				</tr>
+				<tr>
+					<th>특이사항</th>
+					<td><textarea name="etc" cols=30 rows=5></textarea></td>
 				</tr>
 				<tr>
 					<th>사진</th>

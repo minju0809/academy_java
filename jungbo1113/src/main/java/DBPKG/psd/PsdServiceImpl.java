@@ -24,4 +24,14 @@ public class PsdServiceImpl implements PsdService {
 		dao.delete(idx);
 	}
 
+	@Override
+	public String selectFileName(int idx) {
+		return dao.selectFileName(idx);
+	}
+
+	@Override
+	public PsdVO edit(int idx) {
+		return dao.edit(idx);
+	}
+
 }

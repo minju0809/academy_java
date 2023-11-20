@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DBPKG.MemberVO;
 
@@ -44,6 +45,9 @@ public class JungboController extends HttpServlet {
 		JungboService service = new JungboServiceImpl();
 
 		MemberVO vo = new MemberVO(); // insert
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("sessionID", "young");
 
 		if (sw.equals("S")) {
 			List<MemberVO> li = service.select(null);
@@ -116,28 +120,6 @@ public class JungboController extends HttpServlet {
 
 			response.sendRedirect(path + "/JungboController?sw=F");
 		}
-//		else if (sw.equals("M")) {
-//			List<MoneyVO> li = service.money("list");
-//
-//			request.setAttribute("li", li);
-//
-//			RequestDispatcher rd = request.getRequestDispatcher("money.jsp");
-//			rd.forward(request, response);
-//		} else if (sw.equals("ML1")) {
-//			List<MoneyVO> li = service.money("graph");
-//			
-//			request.setAttribute("li", li);
-//
-//			RequestDispatcher rd = request.getRequestDispatcher("money_list1.jsp");
-//			rd.forward(request, response);
-//		} else if (sw.equals("ML2")) {
-//			List<MoneyVO> li = service.money("graph");
-//			
-//			request.setAttribute("li", li);
-//
-//			RequestDispatcher rd = request.getRequestDispatcher("money_list2.jsp");
-//			rd.forward(request, response);
-//		}
 	}
 
 	/**

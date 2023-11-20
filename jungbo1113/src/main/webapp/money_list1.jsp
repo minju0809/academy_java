@@ -5,12 +5,16 @@
 <%@ page import="java.text.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="DBPKG.*"%>
+<%@ page import="DBPKG.jungbo.*"%>
 
 <%@ include file="./include/top.jsp"%>
 <link href="./css/style.css" rel=stylesheet type="text/css" />
 <%
+String sessionID = (String) session.getAttribute("sessionID");
 List<MoneyVO> li = (List<MoneyVO>) request.getAttribute("li");
+
 %>
+sessionID : <%=sessionID %>
 
 <section>
 	<br>

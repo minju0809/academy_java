@@ -3,7 +3,9 @@
 
 <%@ include file="./include/top.jsp"%>
 <link href="./css/style.css" rel=stylesheet type="text/css" />
-
+<%
+session.setAttribute("sessionID", "ppk");
+%>
 <section>
 	<br>
 	<div align=center>
