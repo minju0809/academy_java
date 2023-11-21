@@ -21,12 +21,12 @@ String etc = m.getEtc();
 <section>
 	<br>
 	<div align=center>
-		<b>홈쇼핑 회원 사진 등록</b>
+		<b>홈쇼핑 회원 사진 상세보기/수정</b>
 
 		<form name="f1" method="post" enctype="multipart/form-data"
-			action="<%=path%>/PsdSelectController?sw=E">
-			<input type=hidden name="idx" value="<%=idx%>"> <img
-				src=<%=path%>/files/<%=fimg%> width=400 height=250>
+			action="<%=path%>/PsdController?sw=U&idx=<%=idx %>">
+			 <input  type=hidden name="idx" value="<%=idx %>" >
+			<img src=<%=path%>/files/<%=fimg%> width=400 height=250>
 			<table border=1>
 				<tr>
 					<th>제목</th>

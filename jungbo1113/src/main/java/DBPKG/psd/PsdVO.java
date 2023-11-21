@@ -8,6 +8,22 @@ public class PsdVO {
 	String etc;
 	String fimg;
 	
+	String ch1;
+	String ch2;
+	
+	public String getCh1() {
+		return ch1;
+	}
+	public void setCh1(String ch1) {
+		this.ch1 = ch1;
+	}
+	public String getCh2() {
+		return ch2;
+	}
+	public void setCh2(String ch2) {
+		this.ch2 = ch2;
+	}
+	
 	public int getIdx() {
 		return idx;
 	}

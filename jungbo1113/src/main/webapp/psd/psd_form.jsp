@@ -16,7 +16,7 @@
 		<b>홈쇼핑 회원 사진 등록</b>
 
 		<form name="f1" method="post" enctype="multipart/form-data"
-			action="<%=path%>/PsdIUDController?sw=I">
+			action="<%=path%>/PsdController?sw=I">
 			<table border=1>
 				<tr>
 					<th>제목</th> 
