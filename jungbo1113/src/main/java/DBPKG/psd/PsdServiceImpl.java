@@ -15,8 +15,8 @@ public class PsdServiceImpl implements PsdService {
 	}
 
 	@Override
-	public List<PsdVO> select() {
-		return dao.select();
+	public List<PsdVO> select(PsdVO vo) {
+		return dao.select(vo);
 	}
 
 	@Override
@@ -32,6 +32,11 @@ public class PsdServiceImpl implements PsdService {
 	@Override
 	public PsdVO edit(int idx) {
 		return dao.edit(idx);
+	}
+
+	@Override
+	public void update(PsdVO vo) {
+		dao.update(vo);
 	}
 
 }
