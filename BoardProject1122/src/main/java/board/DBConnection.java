@@ -1,3 +1,68 @@
+<<<<<<< HEAD
+package board;
+
+import java.sql.*;
+
+public class DBConnection {
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public static Connection getConnection() throws Exception {
+		Class.forName("oracle.jdbc.OracleDriver");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xe", "system", "1234");
+		return conn;
+	}
+
+	public static void close(PreparedStatement pstmt, Connection conn) {
+
+		try {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+}
+=======
 package board;
 
 import java.sql.*;
@@ -9,3 +74,4 @@ public class DBConnection {
 		return con;
 	}
 }
+>>>>>>> 37c817c84e9ceefc2fab1390af0949fde27c29fe
