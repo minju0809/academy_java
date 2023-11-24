@@ -1,14 +1,21 @@
-<<<<<<< HEAD
 @charset "UTF-8";
 
 * {
 	margin: 0;
-	padding: 4px;
+	padding: 2px;
 }
 
-a {
+td {
+	padding: 0;
+}
+
+nav a {
 	text-decoration: none;
-	color: goldenrod;
+	color: #fff;
+}
+
+section a {
+	color: #000;
 }
 
 header {
@@ -37,44 +44,4 @@ footer {
 	height: 40px;
 	line-height: 40px;
 	color: #fff;
-=======
-@charset "UTF-8";
-
-* {
-	margin: 0;
-	padding: 4px;
-}
-
-a {
-	text-decoration: none;
-	color: #fff;
-}
-
-header {
-	background: #ff00ff;
-	height: 90px;
-	line-height: 90px;
-	color: #fff;
-	font-size: 30px;
-	text-align: center;
-}
-
-nav {
-	background: #00ff;
-	height: 40px;
-	line-height: 40px;
-	color: #fff;
-}
-
-section {
-	min-height: 500px;
-	background: #e2e2e2;
-}
-
-footer {
-	background: #ff00ff;
-	height: 40px;
-	line-height: 40px;
-	color: #fff;
->>>>>>> 37c817c84e9ceefc2fab1390af0949fde27c29fe
 }

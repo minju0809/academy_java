@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package board.basicBoard;
 
 public class BoardVO {
@@ -6,7 +5,9 @@ public class BoardVO {
 	private String sname;
 	private String title;
 	private String content;
+	private String img;
 	private int cnt;
+	
 
 	public String getIdx() {
 		return idx;
@@ -47,61 +48,15 @@ public class BoardVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "BoardVO [idx=" + idx + ", sname=" + sname + ", title=" + title + ", content=" + content + ", cnt=" + cnt
-				+ "]";
-	}
-}
-=======
-package board.basicBoard;
-
-public class BoardVO {
-	private String idx;
-	private String sname;
-	private String title;
-	private String content;
-	private int cnt;
-
-	public String getIdx() {
-		return idx;
+	public String getImg() {
+		return img;
 	}
 
-	public void setIdx(String idx) {
-		this.idx = idx;
-	}
-
-	public String getSname() {
-		return sname;
-	}
-
-	public void setSname(String sname) {
-		this.sname = sname;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public int getCnt() {
-		return cnt;
-	}
-
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	@Override
@@ -110,4 +65,3 @@ public class BoardVO {
 				+ "]";
 	}
 }
->>>>>>> 37c817c84e9ceefc2fab1390af0949fde27c29fe
