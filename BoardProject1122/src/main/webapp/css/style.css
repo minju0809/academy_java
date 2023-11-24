@@ -2,12 +2,20 @@
 
 * {
 	margin: 0;
-	padding: 4px;
+	padding: 2px;
 }
 
-a {
+td {
+	padding: 0;
+}
+
+nav a {
 	text-decoration: none;
-	color: goldenrod;
+	color: #fff;
+}
+
+section a {
+	color: #000;
 }
 
 header {

@@ -20,18 +20,25 @@ List<BoardVO> li = (List<BoardVO>) request.getAttribute("li");
 		<table border=1>
 			<tr>
 				<th>번호</th>
+				<th>사진</th>
 				<th>이름</th>
 				<th>제목</th>
 				<th>조회수</th>
+				<th>삭제</th>
 			</tr>
 			<%
 			for (BoardVO m : li) {
 			%>
 			<tr>
 				<td><%=m.getIdx() %></td>
+				<td><img src="<%=path%>/basicBoard/files/<%=m.getImg() %>" width=30 height=30></td>
 				<td><%=m.getSname() %></td>
 				<td><a href="<%=path %>/BasicBoardController?sw=E&idx=<%=m.getIdx() %>"><%=m.getTitle() %></a></td>
 				<td><%=m.getCnt() %></td>
+				<%
+				String str = java.net.URLEncoder.encode(m.getImg(), "UTF-8");
+				%>
+				<td><input type=button value="삭제" onClick="location.href='<%=path %>/BasicBoardController?sw=D&idx=<%=m.getIdx() %>&img=<%=str %>'"></td>
 			</tr>
 			<%
 			}

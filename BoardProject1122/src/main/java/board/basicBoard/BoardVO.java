@@ -5,7 +5,9 @@ public class BoardVO {
 	private String sname;
 	private String title;
 	private String content;
+	private String img;
 	private int cnt;
+	
 
 	public String getIdx() {
 		return idx;
@@ -45,6 +47,16 @@ public class BoardVO {
 
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
+	}
+	
+	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	@Override

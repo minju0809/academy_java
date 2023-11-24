@@ -14,3 +14,4 @@ public interface PsdDao {
 	
 	void update(PsdVO vo);
 }
+
