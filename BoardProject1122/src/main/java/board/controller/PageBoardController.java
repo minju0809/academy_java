@@ -61,7 +61,7 @@ public class PageBoardController extends HttpServlet {
 			// 페이지 나누기
 			String start = request.getParameter("start");
 			int pageSize = 10;
-			
+			int pageListSize = 10;
 			int startIdx = 0;
 			int tc = service.totalCount(vo);
 			int totalPage = (int) Math.ceil((double)tc/pageSize); 
@@ -80,6 +80,7 @@ public class PageBoardController extends HttpServlet {
 			List<BoardVO> li = service.select(vo);
 			request.setAttribute("li", li);
 			request.setAttribute("pageSize", pageSize);
+			request.setAttribute("pageListSize", pageListSize);
 			request.setAttribute("start", startIdx);
 			request.setAttribute("tc", tc);
 			request.setAttribute("totalPage", totalPage);

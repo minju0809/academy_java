@@ -15,8 +15,11 @@ List<BoardVO> li = (List<BoardVO>) request.getAttribute("li");
 int start = (int) request.getAttribute("start");
 int tc = (int) request.getAttribute("tc");
 int pageSize = (int) request.getAttribute("pageSize");
+int pageListSize = (int) request.getAttribute("pageListSize");
 int totalPage = (int) request.getAttribute("totalPage");
 int currentPage = (int) request.getAttribute("currentPage");
+int listStartPage = (currentPage - 1) / pageListSize * pageListSize + 1;
+int listEndPage = listStartPage + pageListSize - 1;
 
 String ch1 = (String) request.getParameter("ch1");
 String ch2 = (String) request.getParameter("ch2");
@@ -26,7 +29,16 @@ String ch2 = (String) request.getParameter("ch2");
 <section>
 	<br>
 	<div align=center>
-		<h2>목록보기 (전체레코드 수: <%=tc %>, 현재페이지: <%=currentPage %>, 전체페이지: <%=totalPage %>)</h2>
+		1. 페이지사이즈 : <%=pageSize %> &emsp;
+		2. 페이지 List 사이즈 (숫자개수) : <%=pageListSize %> &emsp;
+		3. 전체 레코드 수 : <%=tc %> &emsp;
+		4. 총 페이지 수 : <%=totalPage %> &emsp;
+		<br>
+		5. 현재 레코드 : <%=start %> &emsp;
+		6. 현재 페이지 : <%=currentPage %> &emsp;
+		7. 가로 하단 시작 : <%=listStartPage %> &emsp;
+		8. 가로 하단 마지막 : <%=listEndPage %> &emsp;
+		<h2>목록보기</h2>
 		<table border=1>
 			<tr>
 				<th>row</th>
@@ -65,17 +77,41 @@ String ch2 = (String) request.getParameter("ch2");
 			%>
 			<a href="PageBoardController?sw=S&start=1&ch1=<%=ch1 %>&ch2=<%=ch2 %>">처음으로</a>
 			
-			<% if (start > 1) { %>
-			<a href="PageBoardController?sw=S&start=<%=start - 10 %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">이전</a>
-			<% } else { %>	
-			이전
-			<% } %>
+			<% 
+			if (listStartPage > pageListSize) { 
+				start = (listStartPage - 11) * pageSize + 1;
+			%>
+				<a href="PageBoardController?sw=S&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">이전<%=pageListSize %></a>
+			<% 
+			} else { 
+			%>	
+				이전
+			<% 
+			} 
+			%>
 			
-			<% if (start != endPage) { %>
-			<a href="PageBoardController?sw=S&start=<%=start + 10 %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">다음</a>
-			<% } else { %>
-			다음
-			<% } %>
+			<%
+			for (int i = listStartPage; i <= listEndPage; i++) {
+				if (i <= totalPage) {
+			%>
+					[<%=i %>]&nbsp;
+			<%
+				}
+			}
+			%>
+			
+			<% 
+			if (listEndPage < totalPage) { 
+				start = listEndPage * pageSize + 1;
+			%>
+				<a href="PageBoardController?sw=S&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">다음<%=pageListSize %></a>
+			<% 
+			} else { 
+			%>
+				다음
+			<%
+			} 
+			%>
 			
 			<a href="PageBoardController?sw=S&start=<%=endPage %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">마지막으로</a>
 		</div>
