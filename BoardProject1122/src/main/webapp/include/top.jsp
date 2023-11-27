@@ -23,5 +23,8 @@ String path = request.getContextPath();
 		
 		<a href="<%=path%>/reBoard/board_write.jsp">답변형글쓰기</a>
 		<a href="<%=path%>/ReBoardController?sw=S">답변형목록보기</a>
+		
+		<a href="<%=path%>/PageBoardController?sw=big">레코드 추가</a>
+		<a href="<%=path%>/PageBoardController?sw=S&start=1">목록보기</a>
 		<a href="<%=path%>/index.jsp">홈으로</a>
 	</nav>
