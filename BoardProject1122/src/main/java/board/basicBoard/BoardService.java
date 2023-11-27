@@ -1,3 +1,4 @@
+
 package board.basicBoard;
 
 import java.util.List;
@@ -12,3 +13,4 @@ public interface BoardService {
 	BoardVO edit(BoardVO vo);
 	List<BoardVO> list(BoardVO vo);
 }
+

@@ -1,3 +1,4 @@
+
 <%@ page language="java" pageEncoding="UTF-8"%>
 
 <%
@@ -27,4 +28,5 @@ String path = request.getContextPath();
 		<a href="<%=path%>/PageBoardController?sw=big">레코드 추가</a>
 		<a href="<%=path%>/PageBoardController?sw=S&start=1">목록보기</a>
 		<a href="<%=path%>/index.jsp">홈으로</a>
+
 	</nav>
