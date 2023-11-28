@@ -105,6 +105,10 @@ $(document).ready( function(){
 				<tr><th>번호</th><td><input type=text name=idx id="idx" size=10 value="<%=m.getIdx()%>" readonly></td></tr>
 				<tr><th>제목</th><td><input type=text name=title id="title" size=30  value="<%=m.getTitle()%>"></td></tr>
 				<tr><th>글쓴이</th><td><input type=text name=sname id="sname" value="<%=m.getSname()%>"></td></tr>
+				<tr><th>우편번호</th><td><input type=text name=postcode id="postcode" size=10 value="<%=m.getPostcode()%>"></td></tr>
+				<tr><th>주소</th><td><input type=text name=address id="address" value="<%=m.getAddress()%>"></td></tr>
+				<tr><th>상세주소</th><td><input type=text name=detail_address id="detail_address" value="<%=m.getDetail_address()%>"></td></tr>
+				<tr><th>참고항목</th><td><input type=text name=extra_address id="extra_address" value="<%=m.getExtra_address()%>"></td></tr>
 				<tr><th>내용</th><td><textarea cols=40 rows=5 name=content id="content"><%=m.getContent()%></textarea></td></tr>
 				<tr><td colspan=2 align=center>
 					<input type=button value="글수정하기" id="updateK"> &emsp;

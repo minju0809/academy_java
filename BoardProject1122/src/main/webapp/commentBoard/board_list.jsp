@@ -23,6 +23,10 @@ List<BoardVO> li = (List<BoardVO>) request.getAttribute("li");
 				<th>번호</th>
 				<th>이름</th>
 				<th>제목</th>
+				<th>우편번호</th>
+				<th>주소</th>
+				<th>상세주소</th>
+				<th>참고항목</th>
 				<th>조회수</th>
 			</tr>
 			<%
@@ -32,6 +36,10 @@ List<BoardVO> li = (List<BoardVO>) request.getAttribute("li");
 				<td><%=m.getIdx() %></td>
 				<td><%=m.getSname() %></td>
 				<td><a href="<%=path %>/CommentController?sw=E&idx=<%=m.getIdx() %>"><%=m.getTitle() %></a></td>
+				<td><%=m.getPostcode() %></td>
+				<td><%=m.getAddress() %></td>
+				<td><%=m.getDetail_address() %></td>
+				<td><%=m.getExtra_address() %></td>
 				<td><%=m.getCnt() %></td>
 			</tr>
 			<%

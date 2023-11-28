@@ -11,18 +11,39 @@ public class BoardDaoImpl implements BoardDao {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	
+
 	@Override
 	public void insert(BoardVO vo) {
 		try {
 			conn = DBConnection.getConnection();
-			String insert_sql = "insert into board1123 (idx,sname,title,content,cnt) values (idx_board.nextval,?,?,?,1)";
+			String insert_sql = "insert into board1123 (idx,sname,title,content,postcode,address,detail_address,extra_address,cnt) "
+					+ "	values (idx_board.nextval,?,?,?,?,?,?,?,1)";
 			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.setString(1, vo.getSname());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
+			if (vo.getPostcode().equals("")) {
+				pstmt.setString(4, "00000");
+			} else {
+				pstmt.setString(4, vo.getPostcode());
+			}
+			if (vo.getAddress().equals("")) {
+				pstmt.setString(5, "주소 미입력");
+			} else {
+				pstmt.setString(5, vo.getAddress());
+			}
+			if (vo.getDetail_address().equals("")) {
+				pstmt.setString(6, " ");
+			} else {
+				pstmt.setString(6, vo.getDetail_address());
+			}
+			if (vo.getExtra_address().equals("")) {
+				pstmt.setString(7, " ");
+			} else {
+				pstmt.setString(7, vo.getExtra_address());
+			}
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +63,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt.setString(3, vo.getContent());
 			pstmt.setString(4, vo.getIdx());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +80,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt = conn.prepareStatement(delete_sql);
 			pstmt.setString(1, vo.getIdx());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,13 +98,17 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt = conn.prepareStatement(edit_sql);
 			pstmt.setString(1, vo.getIdx());
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				m = new BoardVO();
 				m.setIdx(rs.getString("idx"));
 				m.setSname(rs.getString("sname"));
 				m.setTitle(rs.getString("title"));
 				m.setContent(rs.getString("content"));
+				m.setPostcode(rs.getString("postcode"));
+				m.setAddress(rs.getString("address"));
+				m.setDetail_address(rs.getString("detail_address"));
+				m.setExtra_address(rs.getString("extra_address"));
 				m.setCnt(rs.getInt("cnt"));
 			}
 		} catch (Exception e) {
@@ -103,7 +128,7 @@ public class BoardDaoImpl implements BoardDao {
 			String select_sql = "select * from board1123 order by idx desc";
 			pstmt = conn.prepareStatement(select_sql);
 			rs = pstmt.executeQuery();
-			
+
 			list = new ArrayList<>();
 			BoardVO m = null;
 			while (rs.next()) {
@@ -112,9 +137,13 @@ public class BoardDaoImpl implements BoardDao {
 				m.setSname(rs.getString("sname"));
 				m.setTitle(rs.getString("title"));
 				m.setContent(rs.getString("content"));
+				m.setPostcode(rs.getString("postcode"));
+				m.setAddress(rs.getString("address"));
+				m.setDetail_address(rs.getString("detail_address"));
+				m.setExtra_address(rs.getString("extra_address"));
 				m.setCnt(rs.getInt("cnt"));
 				list.add(m);
-				System.out.println("dao"+ m);
+				System.out.println("dao" + m);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -123,7 +152,7 @@ public class BoardDaoImpl implements BoardDao {
 			DBConnection.close(rs, pstmt, conn);
 		}
 		return list;
-	} 
+	}
 
 	@Override
 	public void cntCount(BoardVO vo) {
@@ -133,7 +162,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt = conn.prepareStatement(update_sql);
 			pstmt.setString(1, vo.getIdx());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,7 +180,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt = conn.prepareStatement(select_sql);
 			pstmt.setString(1, vo.getComment_idx());
 			rs = pstmt.executeQuery();
-			
+
 			CommentVO m = null;
 			while (rs.next()) {
 				m = new CommentVO();
@@ -160,14 +189,14 @@ public class BoardDaoImpl implements BoardDao {
 				m.setCommentContent(rs.getString("commentContent"));
 				m.setCommentDate(rs.getDate("commentDate"));
 				list.add(m);
-				System.out.println("dao"+ m);
+				System.out.println("dao" + m);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(rs, pstmt, conn);
-		} 
+		}
 		return list;
 	}
 
@@ -180,7 +209,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt.setString(1, vo.getComment_idx());
 			pstmt.setString(2, vo.getCommentContent());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,7 +226,7 @@ public class BoardDaoImpl implements BoardDao {
 			pstmt = conn.prepareStatement(delete_sql);
 			pstmt.setString(1, vo.getCidx());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

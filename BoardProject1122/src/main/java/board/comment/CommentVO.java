@@ -8,7 +8,7 @@ public class CommentVO {
 	private String comment_idx;
 	private String commentContent;
 	private Date commentDate;
-
+	
 
 	public String getCidx() {
 		return cidx;

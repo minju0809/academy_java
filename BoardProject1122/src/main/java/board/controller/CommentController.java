@@ -64,7 +64,16 @@ public class CommentController extends HttpServlet {
 		cvo.setCommentContent(commentContent);
 		
 		if (sw.equals("I")) {
+			String postcode = request.getParameter("postcode");
+			String address = request.getParameter("address");
+			String detail_address = request.getParameter("detail_address");
+			String extra_address = request.getParameter("extra_address");
+			vo.setPostcode(postcode);
+			vo.setAddress(address);
+			vo.setDetail_address(detail_address);
+			vo.setExtra_address(extra_address);
 			service.insert(vo);
+			System.out.println("insert vo : " + vo);
 			response.sendRedirect(path+"/CommentController?sw=S");
 		} else if (sw.equals("CI")) {
 			service.commentInsert(cvo);
@@ -96,6 +105,16 @@ public class CommentController extends HttpServlet {
 			service.cntCount(vo);
 			cvo.setComment_idx(vo.getIdx());
 			request.setAttribute("li", service.commentlist(cvo));
+			
+			String postcode = request.getParameter("postcode");
+			String address = request.getParameter("address");
+			String detail_address = request.getParameter("detail_address");
+			String extra_address = request.getParameter("extra_address");
+			vo.setPostcode(postcode);
+			vo.setAddress(address);
+			vo.setDetail_address(detail_address);
+			vo.setExtra_address(extra_address);
+			
 			request.setAttribute("m", service.edit(vo));
 			RequestDispatcher rd = request.getRequestDispatcher("/commentBoard/board_edit.jsp");
 			rd.forward(request, response);

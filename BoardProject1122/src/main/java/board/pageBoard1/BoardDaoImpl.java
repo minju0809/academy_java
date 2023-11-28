@@ -71,10 +71,17 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public void update(BoardVO vo) {
-		try {
-
+		try {	
+			conn = DBConnection.getConnection();
+			String update_sql = "update board1127 set sname=?,title=?,content=? where idx=?";
+			pstmt = conn.prepareStatement(update_sql);
+			pstmt.setString(1, vo.getSname());
+			pstmt.setString(2, vo.getTitle());
+			pstmt.setString(3, vo.getContent());
+			pstmt.setString(4, vo.getIdx());
+			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -96,7 +103,27 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public BoardVO edit(String idx) {
-		return null;
+		BoardVO m = null;	
+		try {
+			conn = DBConnection.getConnection();
+			String edit_sql = "select * from board1127 where idx=?";
+			pstmt = conn.prepareStatement(edit_sql);
+			pstmt.setString(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				m = new BoardVO();
+				m.setIdx(rs.getString("idx"));
+				m.setSname(rs.getString("sname"));
+				m.setTitle(rs.getString("title"));
+				m.setContent(rs.getString("content"));
+				m.setCnt(rs.getInt("cnt"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return m;
 	}
 
 	@Override
@@ -159,8 +186,6 @@ public class BoardDaoImpl implements BoardDao {
 				m.setRnum(rs.getInt("rnum"));
 				li.add(m);
 			}
-			
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

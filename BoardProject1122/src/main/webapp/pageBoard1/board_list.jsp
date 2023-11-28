@@ -12,7 +12,15 @@
 @SuppressWarnings("unchecked")
 List<BoardVO> li = (List<BoardVO>) request.getAttribute("li");
 
+String ch1 = (String) request.getParameter("ch1");
+String ch2 = (String) request.getParameter("ch2");
+
+if (ch2 != null) {
+	ch2 = java.net.URLEncoder.encode(ch2, "UTF-8");
+} 
+
 int start = (int) request.getAttribute("start");
+
 int tc = (int) request.getAttribute("tc");
 int pageSize = (int) request.getAttribute("pageSize");
 int pageListSize = (int) request.getAttribute("pageListSize");
@@ -20,10 +28,6 @@ int totalPage = (int) request.getAttribute("totalPage");
 int currentPage = (int) request.getAttribute("currentPage");
 int listStartPage = (currentPage - 1) / pageListSize * pageListSize + 1;
 int listEndPage = listStartPage + pageListSize - 1;
-
-String ch1 = (String) request.getParameter("ch1");
-String ch2 = (String) request.getParameter("ch2");
-
 %>
 
 <section>
@@ -46,7 +50,6 @@ String ch2 = (String) request.getParameter("ch2");
 				<th>번호</th>
 				<th>이름</th>
 				<th>제목</th>
-				<th>내용</th>
 				<th>조회수</th>
 				<th>삭제</th>
 			</tr>
@@ -58,10 +61,11 @@ String ch2 = (String) request.getParameter("ch2");
 				<td><%=m.getRnum() %></td>
 				<td><%=m.getIdx() %></td>
 				<td><%=m.getSname() %></td>
-				<td><a href="<%=path %>/PageBoardController?sw=E&idx=<%=m.getIdx() %>"><%=m.getTitle() %></a></td>
-				<td><%=m.getContent() %></td>
+				<td><a href="<%=path %>/PageBoardController?sw=E&idx=<%=m.getIdx() %>&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>"><%=m.getTitle() %></a></td>
 				<td><%=m.getCnt() %></td>
-				<td><a href="<%=path %>/PageBoardController?sw=D&idx=<%=m.getIdx() %>">삭제</a></td>
+				<td><a href="<%=path %>/PageBoardController?sw=D&idx=<%=m.getIdx() %>&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">삭제</a>
+				<input type=button value="삭제" onClick="location.href='<%=path%>/PageBoardController?sw=D&idx=<%=m.getIdx() %>&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>'">
+				</td>
 			</tr>
 			<%
 			}
@@ -69,17 +73,15 @@ String ch2 = (String) request.getParameter("ch2");
 		</table>
 		<div>
 			<%
-			if (ch2 != null) {
-				ch2 = java.net.URLEncoder.encode(ch2, "UTF-8");
-			}
-			
 			int endPage = (totalPage - 1) * pageSize + 1;
 			%>
 			<a href="PageBoardController?sw=S&start=1&ch1=<%=ch1 %>&ch2=<%=ch2 %>">처음으로</a>
 			
 			<% 
+			// * pageListSize가 15라면, listStartPage는 1, 16, 31, ...
+			// 만약 listStartPage가 pageListSize보다 크면 링크 걸린 이전이 오고, 그렇지 않으면 그냥 이전
 			if (listStartPage > pageListSize) { 
-				start = (listStartPage - 11) * pageSize + 1;
+				start = (listStartPage - pageListSize - 1) * pageSize + 1;
 			%>
 				<a href="PageBoardController?sw=S&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">이전<%=pageListSize %></a>
 			<% 
@@ -91,10 +93,12 @@ String ch2 = (String) request.getParameter("ch2");
 			%>
 			
 			<%
+			// i = 1 --> 1, i = 2 --> 11, i = 3 --> 21
 			for (int i = listStartPage; i <= listEndPage; i++) {
+				start = (i-1) * pageSize + 1;
 				if (i <= totalPage) {
 			%>
-					[<%=i %>]&nbsp;
+				<a href="PageBoardController?sw=S&start=<%=start %>&ch1=<%=ch1 %>&ch2=<%=ch2 %>">[<%=i %>]</a>&nbsp;
 			<%
 				}
 			}
