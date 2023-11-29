@@ -27,6 +27,9 @@ String path = request.getContextPath();
 		
 		<a href="<%=path%>/PageBoardController?sw=big">레코드 추가</a>
 		<a href="<%=path%>/PageBoardController?sw=S&start=1">목록보기</a>
+		
+		<a href="<%=path%>/MapController?sw=S1">지도1(위도, 경도)</a>
+		<a href="<%=path%>/map/map2.jsp">지도2(jsp)</a>
+		<a href="<%=path%>/MapController?sw=S3">지도3(주소이용)</a>
 		<a href="<%=path%>/index.jsp">홈으로</a>
-
 	</nav>

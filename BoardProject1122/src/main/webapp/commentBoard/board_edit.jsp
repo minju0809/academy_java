@@ -32,7 +32,11 @@ $(document).ready( function(){
 		  idx : $('#idx').val(),
 		  title : $('#title').val(),
 		  sname : $('#sname').val(),
-		  content : $('#content').val()	
+		  content : $('#content').val(),
+		  postcode : $('#postcode').val(),
+		  address : $('#address').val(),
+		  detail_address : $('#detail_address').val(),
+		  extra_address : $('#extra_address').val()
 	  };
 	  		 
 	  $.ajax({			 
@@ -100,36 +104,43 @@ $(document).ready( function(){
 		<h2>코맨트 글 상세보기/수정하기</h2>
 		<%-- <form action="<%=path %>/CommentController" method=get > --%>
 		<input type=hidden name=sw value="U" id="usw">
-		
-			<table border=1 width=500>
-				<tr><th>번호</th><td><input type=text name=idx id="idx" size=10 value="<%=m.getIdx()%>" readonly></td></tr>
-				<tr><th>제목</th><td><input type=text name=title id="title" size=30  value="<%=m.getTitle()%>"></td></tr>
-				<tr><th>글쓴이</th><td><input type=text name=sname id="sname" value="<%=m.getSname()%>"></td></tr>
-				<tr><th>우편번호</th><td><input type=text name=postcode id="postcode" size=10 value="<%=m.getPostcode()%>"></td></tr>
-				<tr><th>주소</th><td><input type=text name=address id="address" value="<%=m.getAddress()%>"></td></tr>
-				<tr><th>상세주소</th><td><input type=text name=detail_address id="detail_address" value="<%=m.getDetail_address()%>"></td></tr>
-				<tr><th>참고항목</th><td><input type=text name=extra_address id="extra_address" value="<%=m.getExtra_address()%>"></td></tr>
-				<tr><th>내용</th><td><textarea cols=40 rows=5 name=content id="content"><%=m.getContent()%></textarea></td></tr>
-				<tr><td colspan=2 align=center>
-					<input type=button value="글수정하기" id="updateK"> &emsp;
-					<input type=button value="목록보기" id="listK">
-					<%-- <input type="button" id="listK" value="목록보기" onclick="action='<%=path%>/CommentController?sw=S'"></td> --%>
-				</td></tr>
-			</table>
-		
-		<%-- <form action="<%=path%>/CommentController"> --%>
+		<table border=1>
+			<tr>
+				<td width=400 height=400>
+					<div id="map" style="width:100%;height:100%;"></div>
+				</td>
+				<td width=400 height=400>
+					<table border=1 style="width:100%;height:100%;">
+						<tr><th>번호</th><td><input type=text name=idx id="idx" size=10 value="<%=m.getIdx()%>" readonly></td></tr>
+						<tr><th>제목</th><td><input type=text name=title id="title" size=30  value="<%=m.getTitle()%>"></td></tr>
+						<tr><th>글쓴이</th><td><input type=text name=sname id="sname" value="<%=m.getSname()%>"></td></tr>
+						<tr><th>우편번호</th><td><input type=text name=postcode id="postcode" size=10 value="<%=m.getPostcode()%>"></td></tr>
+						<tr><th>주소</th><td><input type=text name=address id="address" value="<%=m.getAddress()%>"></td></tr>
+						<tr><th>상세주소</th><td><input type=text name=detail_address id="detail_address" value="<%=m.getDetail_address()%>"></td></tr>
+						<tr><th>참고항목</th><td><input type=text name=extra_address id="extra_address" value="<%=m.getExtra_address()%>"></td></tr>
+						<tr><th>내용</th><td><textarea cols=40 rows=5 name=content id="content"><%=m.getContent()%></textarea></td></tr>
+						<tr><td colspan=2 align=center>
+							<input type=button value="글수정하기" id="updateK"> &emsp;
+							<input type=button value="목록보기" id="listK">
+							<%-- <input type="button" id="listK" value="목록보기" onclick="action='<%=path%>/CommentController?sw=S'"></td> --%>
+						</td></tr>
+					</table>
+					<%-- <form action="<%=path%>/CommentController"> --%>
+				</td>
+			</tr>
+		</table>
 		<input type=hidden name=sw value="CI" id="cisw">
 		<input type=hidden name=comment_idx value="<%=m.getIdx() %>" id=comment_idx>
-			<table width=500 border=1>
+			<table border=1 width=816>
 				<tr>
-					<td>
-						<input type=text size=50 name=commentContent id=commentContent>
+					<td align=center>
+						<input type=text size=90% name=commentContent id=commentContent>
 						<input type=button id="commentInsert" value="코맨트저장">
 					</td>
 				</tr>
 			</table>
 		
-		<table border=1 width=500>
+		<table border=1 width=816>
 			<tr>
 				<th width=20>번호</th>
 				<th width=340>코맨트</th>
@@ -152,5 +163,45 @@ $(document).ready( function(){
 	</div>
 	<br>
 </section>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5fd42cdd845577dc157f2510c3e96a73&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(37.54326, 126.728533), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('<%=m.getAddress() %>', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;"><a href="http://naver.com" target="_blank"><%=m.getExtra_address() %></a></div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
 
 <%@ include file="/include/bottom.jsp"%>

@@ -27,21 +27,9 @@ public class BoardDaoImpl implements BoardDao {
 			} else {
 				pstmt.setString(4, vo.getPostcode());
 			}
-			if (vo.getAddress().equals("")) {
-				pstmt.setString(5, "주소 미입력");
-			} else {
-				pstmt.setString(5, vo.getAddress());
-			}
-			if (vo.getDetail_address().equals("")) {
-				pstmt.setString(6, " ");
-			} else {
-				pstmt.setString(6, vo.getDetail_address());
-			}
-			if (vo.getExtra_address().equals("")) {
-				pstmt.setString(7, " ");
-			} else {
-				pstmt.setString(7, vo.getExtra_address());
-			}
+			pstmt.setString(5, vo.getAddress()+" ");
+			pstmt.setString(6, vo.getDetail_address()+" ");
+			pstmt.setString(7, vo.getExtra_address()+" ");
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -56,12 +44,16 @@ public class BoardDaoImpl implements BoardDao {
 	public void update(BoardVO vo) {
 		try {
 			conn = DBConnection.getConnection();
-			String update_sql = "update board1123 set sname=?,title=?,content=? where idx=?";
+			String update_sql = "update board1123 set sname=?,title=?,content=?, postcode=?, address=?, detail_address=?, extra_address=? where idx=?";
 			pstmt = conn.prepareStatement(update_sql);
 			pstmt.setString(1, vo.getSname());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
-			pstmt.setString(4, vo.getIdx());
+			pstmt.setString(4, vo.getPostcode());
+			pstmt.setString(5, vo.getAddress()+" ");
+			pstmt.setString(6, vo.getDetail_address()+" ");
+			pstmt.setString(7, vo.getExtra_address()+" ");
+			pstmt.setString(8, vo.getIdx());
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {

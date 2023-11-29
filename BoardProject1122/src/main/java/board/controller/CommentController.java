@@ -82,8 +82,16 @@ public class CommentController extends HttpServlet {
 			
 //			response.sendRedirect(path+"/CommentController?sw=E&idx="+comment_idx);
 		} else if (sw.equals("U")) {
+			String postcode = request.getParameter("postcode");
+			String address = request.getParameter("address");
+			String detail_address = request.getParameter("detail_address");
+			String extra_address = request.getParameter("extra_address");
+			vo.setPostcode(postcode);
+			vo.setAddress(address);
+			vo.setDetail_address(detail_address);
+			vo.setExtra_address(extra_address);
 			service.update(vo);
-			
+			System.out.println("update vo: " + vo);
 			PrintWriter out = response.getWriter();
 			out.print("Update Success");
 			

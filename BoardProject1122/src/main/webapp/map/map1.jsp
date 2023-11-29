@@ -5,6 +5,13 @@
 <%@ include file="/include/top.jsp"%>
 <link href="./css/style.css" rel=stylesheet type="text/css" />
 
+<%
+String latitude = (String) request.getAttribute("latitude");
+String longitude = (String) request.getAttribute("longitude");
+System.out.println("위도: " + latitude + "경도: " + longitude);
+
+%>
+
 <section>
 	<br>
 	<div align=center>
@@ -13,6 +20,10 @@
 		
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width:90%;height:350px; "></div>
+	
+		<br>
+		<input type=button value="집" name="myHome" onClick="location.href='MapController?sw=S1&sw2=myHome'" style="width: 100px; height: 30px"> &nbsp;
+		<input type=button value="학원" name="academy" onClick="location.href='MapController?sw=S1&sw2=academy'" style="width: 100px; height: 30px">
 	</div>
 	<br>
 
@@ -21,7 +32,8 @@
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(<%=latitude %>, <%= longitude %>), // 지도의 중심좌표
+	        
 	        level: 3 // 지도의 확대 레벨
 	    };
 	
