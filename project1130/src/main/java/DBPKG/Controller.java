@@ -69,7 +69,7 @@ public class Controller extends HttpServlet {
 			
 			memberService.insert(vo);
 			
-			response.sendRedirect("/index.jsp");
+			response.sendRedirect(path+"/index.jsp");
 			
 		} else if (sw.equals("MemberSelect")) {
 			
