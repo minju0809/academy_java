@@ -14,6 +14,7 @@ import DBPKG.teacher.TeacherService;
 import DBPKG.teacher.TeacherServiceImpl;
 import DBPKG.teacher.TeacherVO;
 import DBPKG.member.*;
+import DBPKG.comment.*;
 
 /**
  * Servlet implementation class TeacherController
@@ -41,6 +42,7 @@ public class Controller extends HttpServlet {
 		
 		TeacherService tescherService = new TeacherServiceImpl();
 		MemberService memberService = new MemberServiceImpl();
+		CommentService commentService = new CommentServiceImpl();
 		
 		String sw = request.getParameter("sw");
 		if (sw.equals("TeacherSelect")) {
@@ -57,8 +59,7 @@ public class Controller extends HttpServlet {
 			String c_no = request.getParameter("c_no");
 			String class_area = request.getParameter("address");
 			int tuition = Integer.parseInt(request.getParameter("tuition")); 
-			String teacher_code = request.getParameter("teacher_code");
-			
+			String teacher_code = request.getParameter("class_name");
 			ClassVO vo = new ClassVO();
 			
 			vo.setRegist_month(regist_month);
@@ -77,7 +78,7 @@ public class Controller extends HttpServlet {
 			
 			request.setAttribute("li", li);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/member_list.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/member/member_list.jsp");
 			rd.forward(request, response);
 			
 			
@@ -97,6 +98,55 @@ public class Controller extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/class_insert.jsp");
 			rd.forward(request, response);
+			
+		} else if (sw.equals("ClassSelect")) {
+			
+			List<ClassVO> classList = memberService.classSelect();
+			
+			request.setAttribute("classList", classList);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/class_list.jsp");
+			rd.forward(request, response);
+			
+		} else if (sw.equals("MemberDetail")) {
+			
+			String c_no = request.getParameter("c_no");
+			
+			MemberVO m = memberService.detail(c_no);
+			
+			request.setAttribute("m", m);
+			
+			
+			// 코맨트 select
+			List<CommentVO> commentList = commentService.commentSelect(c_no);
+			
+			request.setAttribute("commentList", commentList);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/member/member_detail.jsp");
+			rd.forward(request, response);
+			
+		} else if (sw.equals("CommentInsert")) {
+			String c_no = request.getParameter("c_no");
+			String writer = request.getParameter("writer");
+			String memo = request.getParameter("memo");
+			
+			CommentVO vo = new CommentVO();
+			vo.setC_no(c_no);
+			vo.setMemo(memo);
+			vo.setWriter(writer);
+			
+			commentService.commentInsert(vo);
+			
+			response.sendRedirect(path+"/Controller?sw=MemberDetail&c_no=" + c_no);
+			
+		} else if (sw.equals("memoDelete")) {
+			
+			String c_no = request.getParameter("c_no");
+			int idx = Integer.parseInt(request.getParameter("idx"));
+			commentService.commentDelete(idx);
+			
+			response.sendRedirect(path+"/Controller?sw=MemberDetail&c_no=" + c_no);
+			
 		}
 	}
 

@@ -11,4 +11,5 @@ public class ClassVO {
 	String class_area;
 	int tuition;
 	String teacher_code;
+	String teacher_name;
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ include file="./include/top.jsp"%>
@@ -25,7 +25,7 @@ function fn_function2() {
 }
 
 function ck1() {
-	
+	// 회원번호가 2000 번 이상이면 50% 할인된 수강료가 자동으로 계산.
 	if (f1.regist_month.value=="") {
 		alert("수강월을 입력해주세요");
 		f1.regist_month.focus();
@@ -65,7 +65,6 @@ function ck1() {
 			</tr>
 			<tr>
 				<td>회원번호</td>
-
 				<td><input name="c_no" type=text readonly>예)10001</td>
 			</tr>
 			<tr>

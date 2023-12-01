@@ -26,15 +26,31 @@ nav {
 	line-height: 40px;
 }
 
-nav a {
+a {
 	text-decoration: none;
+}
+
+nav a {
+	color: #fff;
+}
+
+section a {
+	font-weight: bold;
+	color: green;
 }
 
 section {
 	padding: 0 4px;
 	background-color: lightgray;	
 	min-height: 600px;
-	
+}
+
+table {
+	width: 700px;
+}
+
+th {
+	text-align: center;
 }
 
 footer {
@@ -56,6 +72,8 @@ footer {
 <nav>
 	<a href="<%=path %>/Controller?sw=TeacherSelect">강사조회</a>
 	<a href="<%=path %>/Controller?sw=MemberInfoSelect">수강신청</a>
+	<a href="<%=path %>/Controller?sw=ClassSelect">수강정보현황</a>
+	<a href="<%=path %>/Controller?sw=MemberInfoSelect">수강정보현황</a>
 	<a href="<%=path %>/Controller?sw=MemberSelect">회원정보조회</a>
 	<a href="<%=path %>/Controller?sw=TeacherPriceSelect">강사매출현황</a>
 	<a href="<%=path %>/index.jsp">홈으로</a>

@@ -19,4 +19,14 @@ public class MemberServiceImpl implements MemberService {
 		dao.insert(vo);
 	}
 
+	@Override
+	public List<ClassVO> classSelect() {
+		return dao.classSelect();
+	}
+
+	@Override
+	public MemberVO detail(String c_no) {
+		return dao.detail(c_no);
+	}
+
 }

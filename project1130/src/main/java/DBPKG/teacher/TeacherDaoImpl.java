@@ -31,33 +31,20 @@ public class TeacherDaoImpl implements TeacherDao {
 				li.add(m);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pstmt, conn);
 		}
 		return li;
 	}
 
 	@Override
 	public void insert(TeacherVO vo) {
-//		try {
-//			conn = DBConnection.getConnection();
-//			String sql = "insert into tbl_class_202201 (regist_month,c_no,class_area,tuition,teacher_code) "
-//					+ " values (?,?,?,?,?)";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.executeUpdate();
-//			
-//			ClassVO m = new ClassVO();
-//				m.setTeacher_code(rs.getString("teacher_code"));
-//				System.out.println("insert m: " + m);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 	}
 
 	@Override
 	public List<TeacherVO> priceSelect() {
-		System.out.println("@@@ priceselect" );
 		List<TeacherVO> priceList = new ArrayList<>();
 		try {
 			conn = DBConnection.getConnection();
@@ -77,8 +64,9 @@ public class TeacherDaoImpl implements TeacherDao {
 				priceList.add(m);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pstmt, conn);
 		}
 		return priceList;
 	}

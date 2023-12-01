@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./include/top.jsp" %>
+<%@ include file="/include/top.jsp" %>
 <%@ page import="java.util.*" %>
 <%@ page import="DBPKG.member.MemberVO" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -36,7 +36,7 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 			%> 
 			<tr>
 				<td><%=regist_month %></td>
-				<td><%=m.getC_no() %></td>
+				<td><a href="<%=path %>/Controller?sw=MemberDetail&c_no=<%=m.getC_no() %>"><%=m.getC_no() %></a></td>
 				<td><%=m.getC_name() %></td>
 				<td><%=m.getClass_name() %></td>
 				<td><%=m.getClass_area() %></td>
