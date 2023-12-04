@@ -76,5 +76,7 @@ footer {
 	<a href="<%=path %>/Controller?sw=MemberInfoSelect">수강정보현황</a>
 	<a href="<%=path %>/Controller?sw=MemberSelect">회원정보조회</a>
 	<a href="<%=path %>/Controller?sw=TeacherPriceSelect">강사매출현황</a>
+	<a href="<%=path %>/GuestbookController?sw=GuestbookInsertAll">방명록작성</a>
+	<a href="<%=path %>/GuestbookController?sw=GuestbookSelect">방명록목록</a>
 	<a href="<%=path %>/index.jsp">홈으로</a>
 </nav>
