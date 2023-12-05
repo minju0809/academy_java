@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="./include/top.jsp" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="k" scope="session" value="이젠"></c:set>
+
 <section>
 	<br>
 		<h2 align=center>골프연습장 회원관리 프로그램</h2>

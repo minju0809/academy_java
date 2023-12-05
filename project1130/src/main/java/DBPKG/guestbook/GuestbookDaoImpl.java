@@ -45,6 +45,7 @@ public class GuestbookDaoImpl implements GuestbookDao {
 	public List<GuestbookVO> guestbookSelect(GuestbookVO vo) {
 		System.out.println(vo.getCh1() + " : " + vo.getCh2());
 		List<GuestbookVO> li = new ArrayList<>();
+		
 		int start = vo.getStart();
 		int pageSize= vo.getPageSize();
 		

@@ -53,6 +53,12 @@ public class Controller extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/teacher_list.jsp");
 			rd.forward(request, response);
 			
+		} else if (sw.equals("TeacherJSTL")) {
+			
+			String code = request.getParameter("code");
+			String name = request.getParameter("name");
+			System.out.println(code + " : " + name);
+			
 		} else if (sw.equals("ClassInsert")) {
 			
 			String regist_month = request.getParameter("regist_month");
