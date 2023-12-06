@@ -9,6 +9,7 @@
 <% 
 String path = request.getContextPath();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@ footer {
 <body>
 
 <header>
-	<h1  align=center> 골프연습장 회원관리 ver 1.0</h1>
+	<h1 align=center> 골프연습장 회원관리 ver 1.0</h1>
 </header>
 
 <nav>

@@ -61,6 +61,14 @@ public class GuestbookController extends HttpServlet {
 			
 			List<GuestbookVO> li = service.guestbookSelect(m);
 			int totalCount = service.totalCount(m);
+			int pageListSize = 10;
+			int totalPage =(int) Math.ceil((double) totalCount /  pageSize );
+			int currentPage = (start / pageSize) + 1;
+			int lastPage = (totalPage - 1) * pageSize + 1; 
+			
+			int listStartPage = (currentPage - 1) / pageListSize * pageListSize + 1;
+			int listEndPage = listStartPage + pageListSize - 1 ;
+			
 			
 			request.setAttribute("li", li);
 			request.setAttribute("totalCount", totalCount);
@@ -70,6 +78,12 @@ public class GuestbookController extends HttpServlet {
 			
 			request.setAttribute("start", start);
 			request.setAttribute("pageSize", pageSize);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("lastPage", lastPage);
+			request.setAttribute("pageListSize", pageListSize);
+			request.setAttribute("listStartPage", listStartPage);
+			request.setAttribute("listEndPage", listEndPage);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/guestbook/guestbook_list.jsp");
 			rd.forward(request, response);

@@ -62,13 +62,25 @@ public class GuestbookDaoImpl implements GuestbookDao {
 				pstmt.setInt(1, start+pageSize-1);
 				pstmt.setInt(2, start);
 			} else if (vo.getCh1().equals("name")) {
-				String SQL = "select * from guestbook where name like ? order by idx desc";
+				String SQL = "select  rownum, Q.* from "
+						+ "		(select rownum as rnum, K.* from "
+						+ "			(select * from guestbook where name like ? order by idx desc) K "
+						+ "		where  rownum <= ? ) Q "
+						+ " where rnum >= ? ";
 				pstmt = conn.prepareStatement(SQL);
 				pstmt.setString(1, "%" + vo.getCh2() + "%");
+				pstmt.setInt(2, start+pageSize-1);
+				pstmt.setInt(3, start);
 			} else if (vo.getCh1().equals("title")) {
-				String SQL = "select * from guestbook where title like ? order by idx desc";
+				String SQL = "select  rownum, Q.* from "
+						+ "		(select rownum as rnum, K.* from "
+						+ "			(select * from guestbook where title like ? order by idx desc) K "
+						+ "		where  rownum <= ? ) Q "
+						+ " where rnum >= ? ";
 				pstmt = conn.prepareStatement(SQL);
 				pstmt.setString(1, "%" + vo.getCh2() + "%");
+				pstmt.setInt(2, start+pageSize-1);
+				pstmt.setInt(3, start);
 			}
 
 			rs = pstmt.executeQuery();
@@ -95,15 +107,15 @@ public class GuestbookDaoImpl implements GuestbookDao {
 		try {
 			conn = DBConnection.getConnection();
 			if (vo.getCh1() == null || vo.getCh2() == "") {
-				String sql = "select count(*) as totalCount from guestbook";
-				pstmt = conn.prepareStatement(sql);
+				String SQL = "select count(*) as totalCount from guestbook";
+				pstmt = conn.prepareStatement(SQL);
 			} else if (vo.getCh1().equals("name")) {
-				String sql = "select count(*) as totalCount from guestbook where name like ?";
-				pstmt = conn.prepareStatement(sql);
+				String SQL = "select count(*) as totalCount from guestbook where name like ?";
+				pstmt = conn.prepareStatement(SQL);
 				pstmt.setString(1, "%" + vo.getCh2() + "%");
 			} else if (vo.getCh1().equals("title")) {
-				String sql = "select count(*) as totalCount from guestbook where title like ?";
-				pstmt = conn.prepareStatement(sql);
+				String SQL = "select count(*) as totalCount from guestbook where title like ?";
+				pstmt = conn.prepareStatement(SQL);
 				pstmt.setString(1, "%" + vo.getCh2() + "%");
 			}
 			rs = pstmt.executeQuery();
