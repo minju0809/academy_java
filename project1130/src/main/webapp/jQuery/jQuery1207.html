@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery</title>
+
+	<style>
+		.item0 {
+			background: yellow;
+		}
+
+		.item1 {
+			background: red;
+		}
+		
+		#div0 {
+			background: antiquewhite;
+		}
+		
+		#div1 {
+			background: blanchedalmond;
+		}
+	</style>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script>
+		$(function () {
+			$('h6').addClass(function (index) {
+				return 'item' + index;
+			});
+		});
+		
+		/* $(function () {
+			let src = $('img').attr('width', function(index) {
+				console.log("이미지 확인" + index);
+				return (index + 1) * 100;				
+			});			
+		}); */
+		$(function () {
+			$('img').attr({
+				width: function(index) {
+					return (index + 1) * 100;
+				},
+				height: 200,
+				border: function(index) {
+					return (index + 1) * 2;
+				}
+			});
+		});
+		
+		$(function() {
+			let colorvalue = ['orange', 'green', 'purple']
+			
+			$('h5').css({
+				color: function (index) {
+				// console.log(index + ": " + colorvalue[index]);
+				return colorvalue[index];
+				},
+				width: 150	
+			});
+		});
+		
+		$(function() {
+			let colorvalue = ['aqua', 'gray', 'pink']
+			let backgroundcolorvalue = ['black', 'red', 'blue']	
+			
+			$('h4').css({
+				color: function(index) {
+					return colorvalue[index];
+				},
+				backgroundColor: function(index) {
+					return backgroundcolorvalue[index];
+				},	
+				width: 150
+			});
+		});
+		
+		$(function () {
+			let html = $('h4,h5').html(); // 여러 태그를 가지고 오지 못하고, 처음 하나의 태그의 첫 값만 가지고 옴
+			let text = $('h4,h5').text(); // 해당 태그 안에 있는 text를 모두 가지고 옴
+			let div = $('h4').html("글자"); // 해당 태그 모두에게 값 부여 
+			// console.log(html);
+			// console.log(text);
+			// console.log(div);
+		})
+		
+		$(function () {
+			//$('h4').first().remove(); // 완전히 사라지는 것은 아니고 보여지지 않는 것
+			// $('h4').eq(1).remove();
+			
+			$('h4').each (function(index) {
+				// $('h4').first().remove();
+				// console.log(index + ": 삭제");
+				// $('h4').first().remove();
+			})
+		});
+		
+		$(function () {
+			// $('h4').empty(); // 해당 태그 내부의 모든 것을 삭제
+			$('#div').empty();
+			$('.div').empty();
+		})
+		
+		$(function () { // 텍스트 노드를 갖는 문서 객체 생성
+			$('<h3></h3>').html('hello world').appendTo('body');
+			$('<h3></h3>').html('hello world').appendTo('body');
+			$('<h3></h3>').html('hello world').appendTo('body');
+		})
+		
+		$(function () { // 텍스트 노드를 갖지 않는 문서 객체
+			$('<img />').attr('src','./img/image6.png').css('width', 150).appendTo('body');
+			$('<img />').attr('src','./img/image6.png').appendTo('body');
+			$('<img />').attr('src','./img/image6.png').appendTo('body');
+			$('<br>').appendTo('body');
+		})
+		
+		$(function () { 
+			$('<img />', {
+				src: './img/image2.png',
+				width: 350,
+				height: 250
+			}).appendTo('body');
+		})
+		
+		setInterval(function() { // 2초 인터벌
+			$('a').first().appendTo('#div2');
+		}, 2000)
+		
+		$(function () {
+			//$('#img2').wrap('<a href="http://naver.com"></a>');
+		})
+		
+		$(function () {
+			let h1 = '<h1>Header1</h1>';
+			let h2 = '<h2>Header2</h2>';
+			let h3 = '<h3>Header3</h3>';
+			
+			// 여러 값 추가 가능
+			$('#div0').before(h1, h2, h3); // h1, h2, h3을 #div0 앞에 추가
+			$('#div0').prepend(h3, h2, h1); // h3, h2, h1을 #div0 안의 앞부분에 추가
+			$('#div0').append(h1, h2, h3); // h1, h2, h3을 #div0 안의 뒷부분에 추가
+			$('#div0').after(h3, h2, h1); // h3, h2, h1을 #div0 뒤에 추가
+			
+			// 한 값만 추가 가능
+			$(h1).insertBefore('#div1'); // h1을 #div1 앞에 추가
+			$(h2).prependTo('#div1'); // h2를 #div1 안의 앞부분에 추가
+			$(h2).appendTo('#div1'); // h2를 #div1 안의 뒷부분에 추가
+			$(h1).insertAfter('#div1'); // h1을 #div1 뒤에 추가
+		})
+		
+		$(function () {
+			let i = 0;
+			setInterval(function () {
+				$('#div3').append($('#copy').clone());
+				i += 1;
+				if (i == 6) {
+					i = 0;
+					$('#div3').empty();
+				}
+			}, 2000);
+		})
+	</script>
+	</ </head>
+
+<body>
+	<span id="copy">복사</span>
+	<div id="div3"></div> 
+	top
+	<div id="div1">insertBefore(), prependTo(), appendTo(), insertAfter() 확인</div>
+	bottom
+	<br>
+	top
+	<div id="div0">before(), prepend(), append(), after() 확인</div>
+	bottom
+	<div>
+		<h4><b>Header -0 </b></h4>
+		<div id="div"><h4><b>Header -1 </b></h4></div>
+		<div id="div"><h4><b>Header -2 </b></h4></div>
+		<div class="div"><h4><b>Header -3 </b></h4></div>
+		<div class="div"><h4><b>Header -4 </b></h4></div>
+	</div>
+	<div>
+		<h5>Header -0 </h5>
+		<h5>Header -1 </h5>
+		<h5>Header -2 </h5>
+	</div>
+	<div id="div2">
+		<a><img src="./img/image6.png"></a>
+		<a href="https://chat.openai.com/"><img id="img2" src="./img/image2.png"></a>
+		<a><img src="./img/image6.png"></a>	
+	</div>
+	<div>
+		<h6>Header -0 </h6>
+		<h6></h>Header -1 </h6>
+		<h6>Header -2 </h6>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery</title>
+
+	<style>
+		.reverse {
+			background: black;
+			color: white;
+		}
+
+		#div2 {
+			display: flex;
+			justify-content: space-around;
+		}
+
+		#div2>div {
+			margin: 5px;
+			padding: 3px;
+			border: 3px solid black;
+		}
+	</style>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script>
+		$(function () {
+			$('h5').on({
+				mouseenter: function () {$(this).addClass('reverse');},
+				mouseleave: function () {$(this).removeClass('reverse')}
+			})
+
+			$('h5').click(function () {
+				console.log("click check");
+
+				$(this).off();
+			})
+		})
+
+		$(function () {
+			$('#div2 > div').click(function () {
+				let header = $('h1', this).text();
+				alert(header);
+			})
+		});
+
+		$(function () {
+			$('h4').click(function () {
+				$(this).html(function (index, html) {
+					console.log(html);
+					return html + '@';
+				})
+			});
+
+			/*setInterval(function () {
+				$('h4').last().trigger('click');
+			}, 1000);*/
+		});
+
+		$(function () {
+			$('textarea').keyup(function () {
+				let inputLength = $(this).val().length;
+				let remain = 10 - inputLength;
+
+				$('h3').html(remain);
+
+				if (remain < 0) {
+					$('h3').css('color','red');
+					str = $('textarea').val().substring(0, 10);
+					$('textarea').val(str);
+					//alert ("입력할 수 있는 범위를 넘었습니다.");
+				}
+			})
+		})
+
+		function ckCopy() { // 복사 방지
+			event.preventDefault();
+		}
+
+		function ckPaste() { // 붙여넣기 방지
+			event.preventDefault();
+		}
+
+		function ckCut() { // 잘라내기 방지
+			event.preventDefault();
+		}
+	</script>
+</head>
+
+<body onCopy="return false">
+	<div id="div1">
+		<h5 id="h51">이벤트1</h5>
+		<h5 id="h52">이벤트2</h5>
+		<h5 id="h53">이벤트3</h5>
+	</div>
+	<div id="div2">
+		<div>
+			<h1>Test1</h1>
+			<p>P 영역시험중</p>
+		</div>
+		<div>
+			<h1>Test2</h1>
+			<p>P 영역시험중</p>
+		</div>
+	</div>
+	<div id="div3">
+		<h4>
+			<div> Start : </div>
+		</h4>
+		<h4> Start : </h4>
+	</div>
+	<div id="div4">
+		<p> 내 생각을 작성해 보자. </p>
+		<h3> 10자 </h3>
+		<textarea cols="70" rows="5" onCopy="ckCopy()" onPaste="ckPaste()" onCut="ckCut()"></textarea>
+	</div>
+</body>
+
+</html>
