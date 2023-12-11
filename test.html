@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  hello1 = function() {
+    return "Hello World!!";
+  }
+
+  hello2 = () => { // 화살표 표기법
+    return "Hello World!!";
+  }
+
+  hello3 = () => "Hello World!!";
+
+  hello4 = (k1, k2) => `${k1} Hello World!! ${k2}`;
+
+  hello5 = k1 => `${k1} Hello World!!`;
+
+  document.write(hello1() + "<br>");
+  document.write(hello2() + "<br>");
+  document.write(hello3() + "<br>");
+  document.write(hello4("A", "B") + "<br>");
+  document.write(hello5("A") + "<br>");
+
+</script>
+
+<body>
+
+</body>
+
+</html>

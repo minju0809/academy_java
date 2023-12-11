@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>환영합니다!!</h2>
+  <a href="main.html">
+    <img src="./img/image6.png" />
+  </a>
+  <p>이미지 클릭</p>
+  <!-- <a href="/a">a로</a><br>
+  <form action="/b" method="get">
+    <input type="submit" value="get으로 b로 이동" />
+  </form>
+  <form action="/b" method="post">
+    <input type="submit" value="post로 b로 이동" />
+  </form> -->
+
+  [응답형식]<br>
+  <a href="/data.html">html</a><br>
+  <a href="/data.json">json</a><br>
+  <a href="/data.xml">xml</a><br>
+  <form action="/data.html" method="post">
+    <input type="submit" value="html 전송" />
+  </form>
+  <form action="/data.json" method="post">
+    <input type="submit" value="json 전송" />
+  </form>
+  <form action="/data.xml" method="post">
+    <input type="submit" value="xml 전송" />
+  </form>
+
+  <h2> [전체 레코드 확인]</h2>
+  <form action="/products" method="get">
+    <input type="submit" value="products get 확인" />
+  </form>
+  <h2> [레코드 추가]</h2>
+  </form>
+  <form action="/products" method="post">
+    <input type="text" name="name">
+    <input type="text" name="price">
+    <input type="submit" value="products post 저장" />
+  </form>
+
+  <h2> [선택 레코드 출력]</h2>
+  <a href="/select/0">첫번째 레코드 출력</a><br>
+  <a href="/select/1">두번째 레코드 출력</a><br>
+  <a href="/select/2">세번째 레코드 출력</a><br>
+
+  <h2> [선택삭제]</h2>
+  <form action="/delete" method="get">
+    <input type="text" name="idx" />
+    <input type="submit" value="삭제하기" />
+  </form>
+
+  <h2> [선택수정]</h2>
+  <form action="/edit/" method="post">
+    수정할 idx : <input type="text" name="idx" /><br>
+    수정할 이름 : <input type="text" name="name" /><br>
+    수정할 가격 : <input type="text" name="price" /><br>
+    <input type="submit" value="수정하기" />
+  </form>
+
+</body>
+
+</html>
