@@ -1,70 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title> XMLHttpRequest </title>
 </head>
 
+<style>
+  body {
+    margin: 20px;
+  }
+</style>
+
 <body>
-  <h2>환영합니다!!</h2>
-  <a href="main.html">
-    <img src="./img/image6.png" />
-  </a>
-  <p>이미지 클릭</p>
-  <!-- <a href="/a">a로</a><br>
-  <form action="/b" method="get">
-    <input type="submit" value="get으로 b로 이동" />
-  </form>
-  <form action="/b" method="post">
-    <input type="submit" value="post로 b로 이동" />
-  </form> -->
+  <div id="output"></div>
+  전체보기: <button id='get1'> GET(Xml) </button>
+  전체보기: <button id='get2'> GET(JSON) </button><br><br>
+  입력: <input id="name" /> <input id="price" /> <button id='post'> POST </button><br><br>
+  삭제할 번호: <input id="idx" /> <button id="delete"> DELETE </button><br><br>
+  수정할 번호: <input id="editIdx" /> <br>
+  수정할 이름: <input id="editName" /> <br>
+  수정할 가격: <input id="editPrice" /> <br>
+  <button id='put'> PUT </button><br>
+  <h1> output </h1>
+  <!-- <textarea id="output" disabled="disabled" cols="40" rows="5"></textarea> -->
 
-  [응답형식]<br>
-  <a href="/data.html">html</a><br>
-  <a href="/data.json">json</a><br>
-  <a href="/data.xml">xml</a><br>
-  <form action="/data.html" method="post">
-    <input type="submit" value="html 전송" />
-  </form>
-  <form action="/data.json" method="post">
-    <input type="submit" value="json 전송" />
-  </form>
-  <form action="/data.xml" method="post">
-    <input type="submit" value="xml 전송" />
-  </form>
+  <br />
+  확인 <br />
+  ---------------------------------------------------<br>
+  번호: <input id="detailIdx" /> <button id="detail"> 상세조회 </button>
+  <div id="detailoutput"></div>
+  <script>
+    // request.onreadystatechange = function (event) {
+    //   비동기 일때 필요
+    //   if (request.readyState == 4) {
+    //     if (request.status == 200) {
+    //       // alert(request.responseText);
+    //       //document.body.innerHTML += request.responseText;
 
-  <h2> [전체 레코드 확인]</h2>
-  <form action="/products" method="get">
-    <input type="submit" value="products get 확인" />
-  </form>
-  <h2> [레코드 추가]</h2>
-  </form>
-  <form action="/products" method="post">
-    <input type="text" name="name">
-    <input type="text" name="price">
-    <input type="submit" value="products post 저장" />
-  </form>
+    //       var xml = request.responseXML;
+    //       var names = xml.getElementsByTagName('name');
+    //       var prices = xml.getElementsByTagName('price');
 
-  <h2> [선택 레코드 출력]</h2>
-  <a href="/select/0">첫번째 레코드 출력</a><br>
-  <a href="/select/1">두번째 레코드 출력</a><br>
-  <a href="/select/2">세번째 레코드 출력</a><br>
+    //       document.write("<table border='1' width='250' id='inner'>");
+    //       document.write("<tr><td>상품명</td><td>가격</td></tr>");
+    //       for (var i = 0; i < names.length; i++) {
+    //         var name = names[i].childNodes[0].nodeValue;
+    //         var price = prices[i].childNodes[0].nodeValue;
+    //         document.write("<tr>");
+    //         document.write("<td>" + name + "</td>");
+    //         document.write("<td>" + price + "</td>");
+    //         document.write("</tr>");
+    //       };
+    //       document.write("</table>");
+    //       document.body.innerHTML += '<h1>' + name + '</h1>';
+    //       document.body.innerHTML += '<h2>' + price + '</h2>';
+    //     }
+    //   }
+    // }
 
-  <h2> [선택삭제]</h2>
-  <form action="/delete" method="get">
-    <input type="text" name="idx" />
-    <input type="submit" value="삭제하기" />
-  </form>
+    // // 비동기 통신에서는 필수 조건 처리 부분.
+    // request.onreadystatechange = function (event) {
+    //   var xml = request.responseXML;
+    //   var names = xml.getElementsByTagName('name');
+    //   var prices = xml.getElementsByTagName('price');
+    //   var str = "<table border=1 width=300>"
+    //   str += "<tr><td> 상품명 </td><td> 가격 </td></tr> "
+    //   for (var i = 0; i < names.length; i++) {
+    //     var name = names[i].childNodes[0].nodeValue;
+    //     var price = prices[i].childNodes[0].nodeValue;
+    //     str += "<tr><td>" + name + "</td><td>" + price + "</td></tr> "
+    //   };
+    //   str += "</table>"
+    //   document.body.innerHTML += str
+    // }
 
-  <h2> [선택수정]</h2>
-  <form action="/edit/" method="post">
-    수정할 idx : <input type="text" name="idx" /><br>
-    수정할 이름 : <input type="text" name="name" /><br>
-    수정할 가격 : <input type="text" name="price" /><br>
-    <input type="submit" value="수정하기" />
-  </form>
+    // request.open('GET', 'http://127.0.0.1:52273/data.xml', true);
+    // // request.open('GET', '/data.xml', true);
+
+    // // request.open('GET', '/data.html', true); // 0, 1
+    // // request.open('GET', '/http://127.0.0.1:52273/data.html', true);
+
+    // var prevDate = new Date();
+    // request.send();  // Ajax 실행
+    // var nowDate = new Date();
+
+    // console.log(nowDate - prevDate);
+  </script>
+
+  <script>
+    function delK(idx) {
+      var request = new XMLHttpRequest();
+      request.open('DELETE', '/delete/' + idx, false);
+      request.send();
+
+      var link = document.getElementById('get1');
+      link.click(); // 트리거 작용
+    };
+
+    window.onload = function (event) {
+      document.getElementById('detail').onclick = function () {
+        alert("get3");
+        document.getElementById("output").innerHTML = "";
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function (event) {
+          if (request.readyState == 4) {
+            if (request.status == 200) {
+              var txt = request.responseText;
+            }
+          }
+          document.getElementById("detailoutput").innerHTML = json[etc] // output에 추가
+        }
+        request.open('GET', 'http://127.0.0.1:52273/edit/'+idx, true);
+        request.send(); // 비동기로 처리
+      };
+
+      document.getElementById('get2').onclick = function () {
+        alert("get2");
+        document.getElementById("output").innerHTML = "";
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function (event) {
+          if (request.readyState == 4) {
+            if (request.status == 200) {
+              var json = eval('(' + request.responseText + ')');
+            }
+          }
+          var str = "<table border=1 width=300>"
+          str += "<tr><td> 순번 </td><td> 상품명 </td><td> 가격 </td><td> 삭제 </td></tr> "
+          for (var i = 0; i < json.length; i++) {
+            str += "<tr><td>" + (i + 1) + "</td>"
+            for (var key in json[i]) {
+              str += "<td>" + json[i][key] + "</td>"
+            }
+            str += '<td><input type="button" value="삭제" onClick=delK(' + (i + 1) + ')></td></tr>'
+          };
+          str += "</table>"
+          document.getElementById("output").innerHTML = str // output에 추가
+
+        }
+        request.open('GET', 'http://127.0.0.1:52273/data.json', true);
+        request.send(); // 비동기로 처리
+      }
+
+      document.getElementById('get1').onclick = function () {
+        alert("get1");
+        var request = new XMLHttpRequest();
+        // 비동기 통신에서는 필수 조건 처리 부분.
+        request.onreadystatechange = function (event) {
+          var xml = request.responseXML;
+          var names = xml.getElementsByTagName('name');
+          var prices = xml.getElementsByTagName('price');
+          var str = "<table border=1 width=300>"
+          str += "<tr><td> 순번 </td><td> 상품명 </td><td> 가격 </td><td> 삭제 </td></tr> "
+          for (var i = 0; i < names.length; i++) {
+            idx += 1;
+            var name = names[i].childNodes[0].nodeValue;
+            var price = prices[i].childNodes[0].nodeValue;
+            str += "<tr><td>" + (i + 1) + "</td><td>" + name + "</td><td>" + price + '</td>'
+            str += '<td><input type="button" value="삭제" onClick=delK(' + (i + 1) + ')></td></tr>'
+          };
+          str += "</table>"
+          document.getElementById("output").innerHTML = str // output에 추가
+          // document.body.innerHTML += str // body에 추가
+        }
+
+        request.open('GET', 'http://127.0.0.1:52273/data.xml', true);
+        request.send(); // Ajax 를 수행합니다.
+
+        // document.getElementById('output').value = request.responseText;
+      };
+
+      document.getElementById('post').onclick = function () {
+        // alert('POST');
+        var name = document.getElementById('name').value;
+        var price = document.getElementById('price').value;
+
+        var request = new XMLHttpRequest();
+        request.open('POST', 'http://127.0.0.1:52273/insert', false);
+
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.send('name=' + name + '&price=' + price);
+
+        var link = document.getElementById('get1');
+        link.click(); // 트리거 작용
+        // document.getElementById('output').value = request.responseText;
+      };
+
+      document.getElementById('delete').onclick = function () {
+        // alert('DELETE');
+        var idx = document.getElementById('idx').value;
+        var request = new XMLHttpRequest();
+        request.open('DELETE', '/delete/' + idx, false);
+
+        request.send();
+
+        var link = document.getElementById('get1');
+        link.click(); // 트리거 작용
+      };
+
+      document.getElementById('put').onclick = function () {
+        // alert('EDIT');
+        var idx = document.getElementById('editIdx').value;
+        var name = document.getElementById('editName').value;
+        var price = document.getElementById('editPrice').value;
+
+        var request = new XMLHttpRequest();
+        request.open('PUT', '/edit', false);
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.send('idx=' + idx + '&name=' + name + '&price=' + price);
+
+        var link = document.getElementById('get1');
+        link.click(); // 트리거 작용
+      };
+
+      // var link = document.getElementById('get1');
+      // link.click(); // 트리거 작용
+    };
+  </script>
 
 </body>
 
