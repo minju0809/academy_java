@@ -12,22 +12,89 @@
 </style>
 
 <body>
-  <div id="output"></div>
-  입력: <input id="writer" /> <input id="memo" /> <button id='post'> POST </button><br><br>
+  <h3>[입력]</h3>
+  이름: <input id="writer" />
+  메모: <input id="memo" />
+  <button id='post'> POST </button><br><br>
+  <hr>
+  <input type="hidden" id="get">
+  <!-- <button id="get">목록보기</button><br><br> -->
+  <div id="output"></div><br>
+  <h3>[메모 확인]</h3>
+  <div id="memooutput"></div><br>
 
   <script>
-    document.getElementById('post').onclick = function () {
-      alert('POST');
-      var writer = document.getElementById('writer').value;
-      var memo = document.getElementById('memo').value;
-
+    function delK(idx) {
       var request = new XMLHttpRequest();
-      request.open('POST', '/insert/', false);
-      request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-      request.send('writer=' + writer + '&memo=' + memo);
 
-      // var link = document.getElementById('get1');
-      // link.click(); // 트리거 작용
+      request.open('DELETE', '/delete/' + idx, false);
+      request.send();
+
+      var link = document.getElementById('get');
+      link.click(); // 트리거 작용
+    }
+
+    function memoSelect(idx) {
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function (event) {
+        if (request.readyState == 4) {
+          if (request.status == 200) {
+            var json = eval('(' + request.responseText + ')');
+          }
+        }
+        var memo = json[0][0];
+        var str = "";
+        str += "<textarea rows=3 cols=40>" + memo + "</textarea>";
+
+        document.getElementById("memooutput").innerHTML = str // output에 추가
+      }
+      request.open('GET', '/selectMemo?idx=' + idx, true);
+      request.send(); // 비동기로 처리
+    }
+
+    window.onload = (event) => {
+      document.getElementById('post').onclick = function () {
+        alert('POST');
+        var writer = document.getElementById('writer').value;
+        var memo = document.getElementById('memo').value;
+
+        var request = new XMLHttpRequest();
+        request.open('POST', '/insert/', false);
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.send('writer=' + writer + '&memo=' + memo);
+
+        var link = document.getElementById('get');
+        link.click(); // 트리거 작용
+      };
+
+      document.getElementById('get').onclick = function () {
+        // alert('get');
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function (event) {
+          if (request.readyState == 4) {
+            if (request.status == 200) {
+              var json = eval('(' + request.responseText + ')');
+            }
+          }
+          var str = "<table border=1 width=500>"
+          str += "<tr><td> 순번 </td><td> 상품명 </td><td> 삭제 </td></tr> "
+
+          str += "<tr>"
+          for (var i = 0; i < json.length; i++) {
+            idx = json[i][0];
+            writer = json[i][1];
+            str += "<td><a href='#' onclick='memoSelect(" + idx + ")'>" + idx + "</a></td><td>" + writer + "</td>"
+            str += '<td><input type="button" value="삭제" onClick=delK(' + idx + ')></td></tr>'
+          };
+          str += "</table>"
+          document.getElementById("output").innerHTML = str // output에 추가
+        }
+        request.open('GET', '/select/', true);
+        request.send(); // 비동기로 처리
+      };
+
+      var link = document.getElementById('get');
+      link.click(); // 트리거 작용
     };
 
   </script>

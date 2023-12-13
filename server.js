@@ -1,4 +1,4 @@
-let http = require('http');
+let http = require('http'); 
 let express = require('express');
 let app = express();
 let oracledb = require("oracledb");
@@ -27,7 +27,7 @@ oracledb.getConnection({
 });
 
 app.get('/select/', function (request, response) {
-  let SQL = "select * from memo1213";
+  let SQL = "select * from memo1213 order by idx desc";
   conn.execute(SQL, function (err, data) {
 
     if (err) {
@@ -41,10 +41,10 @@ app.get('/select/', function (request, response) {
   });
 });
 
-app.get('/detail/', function (request, response) {
-  let idx = '101';
-  let SQL = "select * from memo1213 where idx = :idx";
-  conn.execute(SQL,[idx], function (err, data) {
+app.get('/selectMemo', (request, response) => {
+  let idx = Number(request.query.idx);
+  let SQL = "select memo from memo1213 where idx = :idx";
+  conn.execute(SQL, [idx], function (err, data) {
 
     if (err) {
       console.log("==> 등록중 에러가 발생했어요!!", err);
@@ -57,69 +57,74 @@ app.get('/detail/', function (request, response) {
   });
 });
 
-app.get('/detail2/', function (request, response) {
-  let idx = '102';
-  let SQL = "select * from memo1213 where idx = " + idx;
-  conn.execute(SQL, function (err, data) {
-    
-    if (err) {
-      console.log("==> 등록중 에러가 발생했어요!!", err);
-      response.writeHead(500, { "ContentType": "text/html" });
-      response.end("fail!!");
-    } else {
-      console.log("===> result : ", data);
-      response.send(data.rows);
-    }
-  });
-});
 
-app.all('/insert/', function (request, response) {
-  let writer = '바다';
-  let memo = '일본 여행';
+
+// app.get('/detail/', function (request, response) {
+//   let idx = '101';
+//   let SQL = "select * from memo1213 where idx = :idx";
+//   conn.execute(SQL,[idx], function (err, data) {
+
+//     if (err) {
+//       console.log("==> 등록중 에러가 발생했어요!!", err);
+//       response.writeHead(500, { "ContentType": "text/html" });
+//       response.end("fail!!");
+//     } else {
+//       console.log("===> result : ", data);
+//       response.send(data.rows);
+//     }
+//   });
+// });
+
+// app.get('/detail2/', function (request, response) {
+//   let idx = '102';
+//   let SQL = "select * from memo1213 where idx = " + idx;
+//   conn.execute(SQL, function (err, data) {
+
+//     if (err) {
+//       console.log("==> 등록중 에러가 발생했어요!!", err);
+//       response.writeHead(500, { "ContentType": "text/html" });
+//       response.end("fail!!");
+//     } else {
+//       console.log("===> result : ", data);
+//       response.send(data.rows);
+//     }
+//   });
+// });
+
+app.post('/insert/', function (request, response) {
+  let writer = request.body.writer;
+  let memo = request.body.memo;
   let SQL = "insert into memo1213 (idx, writer, memo) values (idx.nextval, :writer, :memo)";
-  conn.execute(SQL,[writer, memo], function (err, data) {
-    
+  conn.execute(SQL, [writer, memo], function (err, data) {
+
     if (err) {
       console.log("==> 등록중 에러가 발생했어요!!", err);
       response.writeHead(500, { "ContentType": "text/html" });
       response.end("fail!!");
     } else {
       console.log("===> result(저장성공) : ", data);
+      response.send(data.rows);
     }
   });
 });
 
-app.all('/insert2/', function (request, response) {
-  let writer = '월출이';
-  let memo = '울릉도 여행';
-  let SQL = "insert into memo1213 (idx, writer, memo) " 
-    SQL += " values (idx.nextval, '" + writer + "', '" + memo + "')";
-  conn.execute(SQL, function (err, data) {
-    
-    if (err) {
-      console.log("==> 등록중 에러가 발생했어요!!", err);
-      response.writeHead(500, { "ContentType": "text/html" });
-      response.end("fail!!");
-    } else {
-      console.log("===> result(저장성공) : ", data);
-    }
-  });
-});
 
 app.all('/delete/:idx', function (request, response) {
   let idx = Number(request.params.idx);
   let SQL = "delete from memo1213 where idx = :idx";
   conn.execute(SQL,[idx], function (err, data) {
-    
+
     if (err) {
       console.log("==> 등록중 에러가 발생했어요!!", err);
       response.writeHead(500, { "ContentType": "text/html" });
       response.end("fail!!");
     } else {
       console.log("===> result(삭제성공) : ", data);
+      response.send(data.rows);
     }
   });
 });
+
 
 http.createServer(app).listen(52273, function () {
   console.log('Server Running  at  http://127.0.0.1:52273');
