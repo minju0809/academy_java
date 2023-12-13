@@ -21,7 +21,6 @@ app.all('/data.xml', (request, response) => {
     output += '<product>'
     output += '<name>' + item.name + '</name>';
     output += '<price>' + item.price + '</price>';
-    output += '<etc>' + item.etc + '</etc>';
     output += '</product>'
   });
   output += '</products>'
@@ -42,10 +41,15 @@ app.all('/data.html', (request, response) => {
 });
 
 app.get('/detail/:idx', (request, response) => {
-  console.log("ghkslelfji;a@@");
   let idx = Number(request.params.idx);
   idx = idx - 1;
-  response.send(items[idx].etc);
+  if (isNaN(idx)) {
+    response.send({ error: '숫자를 입력하세요!!' });
+  } else if (items[idx]) {
+    response.send(items[idx].etc);
+  } else {
+    response.send({ error: '존재하지 않는 데이터 입니다.!!' });
+  }
 });
 
 app.post('/insert', (request, response) => {
@@ -64,7 +68,7 @@ app.get('/select', (request, response) => {
 });
 
 app.del('/delete/:idx', function (request, response) {
-  var idx = Number(request.params.idx);
+  let idx = Number(request.params.idx);
   idx = idx - 1;
   if (isNaN(idx)) {
     response.send({ error: '숫자를 입력하세요!!' });

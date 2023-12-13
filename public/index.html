@@ -29,67 +29,11 @@
   ---------------------------------------------------<br>
   번호: <input id="detailIdx" /> <button id="detail"> 상세조회 </button>
   <div id="detailoutput"></div>
-  <script>
-    // request.onreadystatechange = function (event) {
-    //   비동기 일때 필요
-    //   if (request.readyState == 4) {
-    //     if (request.status == 200) {
-    //       // alert(request.responseText);
-    //       //document.body.innerHTML += request.responseText;
-
-    //       var xml = request.responseXML;
-    //       var names = xml.getElementsByTagName('name');
-    //       var prices = xml.getElementsByTagName('price');
-
-    //       document.write("<table border='1' width='250' id='inner'>");
-    //       document.write("<tr><td>상품명</td><td>가격</td></tr>");
-    //       for (var i = 0; i < names.length; i++) {
-    //         var name = names[i].childNodes[0].nodeValue;
-    //         var price = prices[i].childNodes[0].nodeValue;
-    //         document.write("<tr>");
-    //         document.write("<td>" + name + "</td>");
-    //         document.write("<td>" + price + "</td>");
-    //         document.write("</tr>");
-    //       };
-    //       document.write("</table>");
-    //       document.body.innerHTML += '<h1>' + name + '</h1>';
-    //       document.body.innerHTML += '<h2>' + price + '</h2>';
-    //     }
-    //   }
-    // }
-
-    // // 비동기 통신에서는 필수 조건 처리 부분.
-    // request.onreadystatechange = function (event) {
-    //   var xml = request.responseXML;
-    //   var names = xml.getElementsByTagName('name');
-    //   var prices = xml.getElementsByTagName('price');
-    //   var str = "<table border=1 width=300>"
-    //   str += "<tr><td> 상품명 </td><td> 가격 </td></tr> "
-    //   for (var i = 0; i < names.length; i++) {
-    //     var name = names[i].childNodes[0].nodeValue;
-    //     var price = prices[i].childNodes[0].nodeValue;
-    //     str += "<tr><td>" + name + "</td><td>" + price + "</td></tr> "
-    //   };
-    //   str += "</table>"
-    //   document.body.innerHTML += str
-    // }
-
-    // request.open('GET', 'http://127.0.0.1:52273/data.xml', true);
-    // // request.open('GET', '/data.xml', true);
-
-    // // request.open('GET', '/data.html', true); // 0, 1
-    // // request.open('GET', '/http://127.0.0.1:52273/data.html', true);
-
-    // var prevDate = new Date();
-    // request.send();  // Ajax 실행
-    // var nowDate = new Date();
-
-    // console.log(nowDate - prevDate);
-  </script>
 
   <script>
     function delK(idx) {
       var request = new XMLHttpRequest();
+
       request.open('DELETE', '/delete/' + idx, false);
       request.send();
 
@@ -99,8 +43,9 @@
 
     window.onload = function (event) {
       document.getElementById('detail').onclick = function () {
-        alert("get3");
-        document.getElementById("output").innerHTML = "";
+        // alert("get3");
+        var idx = document.getElementById('detailIdx').value;
+
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (event) {
           if (request.readyState == 4) {
@@ -108,9 +53,9 @@
               var txt = request.responseText;
             }
           }
-          document.getElementById("detailoutput").innerHTML = json[etc] // output에 추가
+          document.getElementById("detailoutput").innerHTML = txt // output에 추가
         }
-        request.open('GET', 'http://127.0.0.1:52273/edit/'+idx, true);
+        request.open('GET', 'detail/' + idx, true);
         request.send(); // 비동기로 처리
       };
 
@@ -119,6 +64,7 @@
         document.getElementById("output").innerHTML = "";
         var request = new XMLHttpRequest();
         request.onreadystatechange = function (event) {
+          // alert("request.readyState:" + request.readyState)
           if (request.readyState == 4) {
             if (request.status == 200) {
               var json = eval('(' + request.responseText + ')');
@@ -137,7 +83,7 @@
           document.getElementById("output").innerHTML = str // output에 추가
 
         }
-        request.open('GET', 'http://127.0.0.1:52273/data.json', true);
+        request.open('GET', '/data.json', true);
         request.send(); // 비동기로 처리
       }
 
@@ -146,7 +92,12 @@
         var request = new XMLHttpRequest();
         // 비동기 통신에서는 필수 조건 처리 부분.
         request.onreadystatechange = function (event) {
-          var xml = request.responseXML;
+          // alert("request.readyState:" + request.readyState)
+          if (request.readyState == 4) {
+            if (request.status == 200) {
+              var xml = request.responseXML;
+            }
+          }
           var names = xml.getElementsByTagName('name');
           var prices = xml.getElementsByTagName('price');
           var str = "<table border=1 width=300>"
@@ -162,11 +113,8 @@
           document.getElementById("output").innerHTML = str // output에 추가
           // document.body.innerHTML += str // body에 추가
         }
-
-        request.open('GET', 'http://127.0.0.1:52273/data.xml', true);
+        request.open('GET', '/data.xml', true);
         request.send(); // Ajax 를 수행합니다.
-
-        // document.getElementById('output').value = request.responseText;
       };
 
       document.getElementById('post').onclick = function () {
@@ -175,22 +123,20 @@
         var price = document.getElementById('price').value;
 
         var request = new XMLHttpRequest();
-        request.open('POST', 'http://127.0.0.1:52273/insert', false);
-
+        request.open('POST', '/insert', false);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         request.send('name=' + name + '&price=' + price);
 
         var link = document.getElementById('get1');
         link.click(); // 트리거 작용
-        // document.getElementById('output').value = request.responseText;
       };
 
       document.getElementById('delete').onclick = function () {
         // alert('DELETE');
         var idx = document.getElementById('idx').value;
         var request = new XMLHttpRequest();
-        request.open('DELETE', '/delete/' + idx, false);
 
+        request.open('DELETE', '/delete/' + idx, false);
         request.send();
 
         var link = document.getElementById('get1');
@@ -212,8 +158,8 @@
         link.click(); // 트리거 작용
       };
 
-      // var link = document.getElementById('get1');
-      // link.click(); // 트리거 작용
+      var link = document.getElementById('get1');
+      link.click(); // 트리거 작용
     };
   </script>
 
