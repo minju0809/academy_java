@@ -13,154 +13,23 @@
 
 <body>
   <div id="output"></div>
-  전체보기: <button id='get1'> GET(Xml) </button>
-  전체보기: <button id='get2'> GET(JSON) </button><br><br>
-  입력: <input id="name" /> <input id="price" /> <button id='post'> POST </button><br><br>
-  삭제할 번호: <input id="idx" /> <button id="delete"> DELETE </button><br><br>
-  수정할 번호: <input id="editIdx" /> <br>
-  수정할 이름: <input id="editName" /> <br>
-  수정할 가격: <input id="editPrice" /> <br>
-  <button id='put'> PUT </button><br>
-  <h1> output </h1>
-  <!-- <textarea id="output" disabled="disabled" cols="40" rows="5"></textarea> -->
-
-  <br />
-  확인 <br />
-  ---------------------------------------------------<br>
-  번호: <input id="detailIdx" /> <button id="detail"> 상세조회 </button>
-  <div id="detailoutput"></div>
+  입력: <input id="writer" /> <input id="memo" /> <button id='post'> POST </button><br><br>
 
   <script>
-    function delK(idx) {
+    document.getElementById('post').onclick = function () {
+      alert('POST');
+      var writer = document.getElementById('writer').value;
+      var memo = document.getElementById('memo').value;
+
       var request = new XMLHttpRequest();
+      request.open('POST', '/insert/', false);
+      request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      request.send('writer=' + writer + '&memo=' + memo);
 
-      request.open('DELETE', '/delete/' + idx, false);
-      request.send();
-
-      var link = document.getElementById('get1');
-      link.click(); // 트리거 작용
+      // var link = document.getElementById('get1');
+      // link.click(); // 트리거 작용
     };
 
-    window.onload = function (event) {
-      document.getElementById('detail').onclick = function () {
-        // alert("get3");
-        var idx = document.getElementById('detailIdx').value;
-
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function (event) {
-          if (request.readyState == 4) {
-            if (request.status == 200) {
-              var txt = request.responseText;
-            }
-          }
-          document.getElementById("detailoutput").innerHTML = txt // output에 추가
-        }
-        request.open('GET', 'detail/' + idx, true);
-        request.send(); // 비동기로 처리
-      };
-
-      document.getElementById('get2').onclick = function () {
-        alert("get2");
-        document.getElementById("output").innerHTML = "";
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function (event) {
-          // alert("request.readyState:" + request.readyState)
-          if (request.readyState == 4) {
-            if (request.status == 200) {
-              var json = eval('(' + request.responseText + ')');
-            }
-          }
-          var str = "<table border=1 width=300>"
-          str += "<tr><td> 순번 </td><td> 상품명 </td><td> 가격 </td><td> 삭제 </td></tr> "
-          for (var i = 0; i < json.length; i++) {
-            str += "<tr><td>" + (i + 1) + "</td>"
-            for (var key in json[i]) {
-              str += "<td>" + json[i][key] + "</td>"
-            }
-            str += '<td><input type="button" value="삭제" onClick=delK(' + (i + 1) + ')></td></tr>'
-          };
-          str += "</table>"
-          document.getElementById("output").innerHTML = str // output에 추가
-
-        }
-        request.open('GET', '/data.json', true);
-        request.send(); // 비동기로 처리
-      }
-
-      document.getElementById('get1').onclick = function () {
-        alert("get1");
-        var request = new XMLHttpRequest();
-        // 비동기 통신에서는 필수 조건 처리 부분.
-        request.onreadystatechange = function (event) {
-          // alert("request.readyState:" + request.readyState)
-          if (request.readyState == 4) {
-            if (request.status == 200) {
-              var xml = request.responseXML;
-            }
-          }
-          var names = xml.getElementsByTagName('name');
-          var prices = xml.getElementsByTagName('price');
-          var str = "<table border=1 width=300>"
-          str += "<tr><td> 순번 </td><td> 상품명 </td><td> 가격 </td><td> 삭제 </td></tr> "
-          for (var i = 0; i < names.length; i++) {
-            idx += 1;
-            var name = names[i].childNodes[0].nodeValue;
-            var price = prices[i].childNodes[0].nodeValue;
-            str += "<tr><td>" + (i + 1) + "</td><td>" + name + "</td><td>" + price + '</td>'
-            str += '<td><input type="button" value="삭제" onClick=delK(' + (i + 1) + ')></td></tr>'
-          };
-          str += "</table>"
-          document.getElementById("output").innerHTML = str // output에 추가
-          // document.body.innerHTML += str // body에 추가
-        }
-        request.open('GET', '/data.xml', true);
-        request.send(); // Ajax 를 수행합니다.
-      };
-
-      document.getElementById('post').onclick = function () {
-        // alert('POST');
-        var name = document.getElementById('name').value;
-        var price = document.getElementById('price').value;
-
-        var request = new XMLHttpRequest();
-        request.open('POST', '/insert', false);
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        request.send('name=' + name + '&price=' + price);
-
-        var link = document.getElementById('get1');
-        link.click(); // 트리거 작용
-      };
-
-      document.getElementById('delete').onclick = function () {
-        // alert('DELETE');
-        var idx = document.getElementById('idx').value;
-        var request = new XMLHttpRequest();
-
-        request.open('DELETE', '/delete/' + idx, false);
-        request.send();
-
-        var link = document.getElementById('get1');
-        link.click(); // 트리거 작용
-      };
-
-      document.getElementById('put').onclick = function () {
-        // alert('EDIT');
-        var idx = document.getElementById('editIdx').value;
-        var name = document.getElementById('editName').value;
-        var price = document.getElementById('editPrice').value;
-
-        var request = new XMLHttpRequest();
-        request.open('PUT', '/edit', false);
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        request.send('idx=' + idx + '&name=' + name + '&price=' + price);
-
-        var link = document.getElementById('get1');
-        link.click(); // 트리거 작용
-      };
-
-      var link = document.getElementById('get1');
-      link.click(); // 트리거 작용
-    };
   </script>
 
 </body>
